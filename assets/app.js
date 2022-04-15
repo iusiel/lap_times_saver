@@ -8,5 +8,18 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
+import('./third-party/bootstrap-5.1.3-dist/js/bootstrap.js');
 // start the Stimulus application
 import './bootstrap';
+import { createApp } from 'vue';
+import Navbar from './js/components/Navbar.vue';
+createApp({
+    data() {
+      return {
+        // count: 0
+      }
+    },
+    components: {
+        Navbar
+    }
+}).mount('#navbar')
