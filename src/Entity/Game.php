@@ -4,8 +4,9 @@ namespace App\Entity;
 
 use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ORM\Entity(repositoryClass: GameRepository::class)]
+#[UniqueEntity(fields: ['Name'],    errorPath: 'Name')]
 class Game
 {
     #[ORM\Id]
@@ -14,7 +15,7 @@ class Game
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $Name;
+    protected $Name;
 
     #[ORM\Column(type: 'datetime')]
     private $CreatedAt;

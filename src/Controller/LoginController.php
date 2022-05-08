@@ -49,9 +49,4 @@ class LoginController extends AbstractController
 
         return new Response('Success');
     }
-
-
-    
-
-
 }

@@ -31,6 +31,8 @@ class GameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $game->setCreatedAt(new \DateTime());
+            $game->setUpdatedAt(new \DateTime());
             $gameRepository->add($game);
             return $this->redirectToRoute('app_game_index', [], Response::HTTP_SEE_OTHER);
         }
