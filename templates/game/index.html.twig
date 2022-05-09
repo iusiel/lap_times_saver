@@ -7,7 +7,7 @@
     <h1>Game index</h1>
 
     <div class="my-3">
-        <a class="general__text-link" href="{{ path('app_game_new') }}">Create new game</a>
+        <a class="general__text-link" href="{{ path('app_game_new') }}"><button class="btn btn-primary">Create new game</button></a>
     </div>
 
     <table class="table">
@@ -28,9 +28,11 @@
                 <td>{{ game.CreatedAt ? game.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ game.UpdatedAt ? game.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a class="general__text-link" href="{{ path('app_game_show', {'id': game.id}) }}">Show</a>
-                    <a class="general__text-link" href="{{ path('app_game_edit', {'id': game.id}) }}">Edit</a>
-                    <a class="general__text-link" href="{{ path('app_game_edit', {'id': game.id}) }}">Delete</a>
+                    <a class="general__text-link" href="{{ path('app_game_edit', {'id': game.id}) }}"><button class="btn btn-primary">Edit</button></a>
+                    <form class="d-inline" method="post" action="{{ path('app_game_delete', {'id': game.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ game.id) }}">
+                        <button class="btn btn-primary">Delete</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
