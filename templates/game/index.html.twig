@@ -6,6 +6,10 @@
 <div class="container">
     <h1>Game index</h1>
 
+    <div class="my-3">
+        <a class="general__text-link" href="{{ path('app_game_new') }}">Create new game</a>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -24,8 +28,9 @@
                 <td>{{ game.CreatedAt ? game.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ game.UpdatedAt ? game.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_game_show', {'id': game.id}) }}">show</a>
-                    <a href="{{ path('app_game_edit', {'id': game.id}) }}">edit</a>
+                    <a class="general__text-link" href="{{ path('app_game_show', {'id': game.id}) }}">Show</a>
+                    <a class="general__text-link" href="{{ path('app_game_edit', {'id': game.id}) }}">Edit</a>
+                    <a class="general__text-link" href="{{ path('app_game_edit', {'id': game.id}) }}">Delete</a>
                 </td>
             </tr>
         {% else %}
@@ -35,7 +40,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_game_new') }}">Create new</a>
 </div>
 {% endblock %}
