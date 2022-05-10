@@ -23,3 +23,7 @@ createApp({
         Navbar
     }
 }).mount('#navbar')
+
+if (document.querySelectorAll('.form__delete').length > 0) {
+  import('./js/services/SweetAlertOnDeleteAction.js');
+}

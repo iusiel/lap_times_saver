@@ -29,7 +29,7 @@
                 <td>{{ game.UpdatedAt ? game.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a class="general__text-link" href="{{ path('app_game_edit', {'id': game.id}) }}"><button class="btn btn-primary">Edit</button></a>
-                    <form class="d-inline" method="post" action="{{ path('app_game_delete', {'id': game.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                    <form class="d-inline form__delete" method="post" action="{{ path('app_game_delete', {'id': game.id}) }}">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ game.id) }}">
                         <button class="btn btn-primary">Delete</button>
                     </form>
