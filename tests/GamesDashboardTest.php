@@ -84,4 +84,16 @@ class GamesDashboardTest extends WebTestCase
         $urlGenerator = $container->get(UrlHelper::class);
         $this->assertResponseRedirects('/game/');
     }
+
+    public function testDeleteGameFunction(): void
+    {
+        $client = static::createClient();
+        $container = static::getContainer();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->find(1);
+        $client->loginUser($testUser);
+        $crawler = $client->request('POST', "/game/1");
+        $urlGenerator = $container->get(UrlHelper::class);
+        $this->assertResponseRedirects('/game/');
+    }
 }
