@@ -46,13 +46,39 @@ class GamesDashboardTest extends WebTestCase
     {
         $client = static::createClient();
         $container = static::getContainer();
-        $game = new Game();
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->find(1);
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/game/new", [
             'game' => [
                 'Name' => 'Test'
+            ],
+        ]);
+        $urlGenerator = $container->get(UrlHelper::class);
+        $this->assertResponseRedirects('/game/');
+    }
+
+    public function testShowEditGameScreen(): void
+    {
+        $client = static::createClient();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->find(1);
+        $client->loginUser($testUser);
+        $crawler = $client->request('GET', "/game/1/edit");
+        $this->assertResponseIsSuccessful();
+    }
+
+
+    public function testEditGameFunction(): void
+    {
+        $client = static::createClient();
+        $container = static::getContainer();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->find(1);
+        $client->loginUser($testUser);
+        $crawler = $client->request('POST', "/game/1/edit", [
+            'game' => [
+                'Name' => 'Edited title'
             ],
         ]);
         $urlGenerator = $container->get(UrlHelper::class);
