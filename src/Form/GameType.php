@@ -12,6 +12,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class GameType extends AbstractType
 {
+    private $kernelInterface;
+
+    public function __construct(string $env)
+    {
+        $this->kernelInterface = $env;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -30,8 +37,10 @@ class GameType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        
         $resolver->setDefaults([
             'data_class' => Game::class,
+            'csrf_protection' => ($this->kernelInterface === 'test') ? false : true,
         ]);
     }
 }
