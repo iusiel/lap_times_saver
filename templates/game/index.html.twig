@@ -1,0 +1,46 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}Game index{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Game index</h1>
+
+    <div class="my-3">
+        <a class="general__text-link" href="{{ path('app_game_new') }}"><button class="btn btn-primary">Create new game</button></a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.id }}</td>
+                <td>{{ game.Name }}</td>
+                <td>{{ game.CreatedAt ? game.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ game.UpdatedAt ? game.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a class="general__text-link" href="{{ path('app_game_edit', {'id': game.id}) }}"><button class="btn btn-primary">Edit</button></a>
+                    <form class="d-inline form__delete" method="post" action="{{ path('app_game_delete', {'id': game.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ game.id) }}">
+                        <button class="btn btn-primary">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
