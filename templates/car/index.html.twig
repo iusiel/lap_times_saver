@@ -28,7 +28,7 @@
                     <td>{{ car.CreatedAt ? car.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ car.UpdatedAt ? car.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
-                        <a class="general__text-link" href="{{ path('app_car_show', {'id': car.id}) }}"><button class="btn btn-primary">Edit</button></a>
+                        <a class="general__text-link" href="{{ path('app_car_edit', {'id': car.id}) }}"><button class="btn btn-primary">Edit</button></a>
                         <form class="d-inline form__delete" method="post" action="{{ path('app_car_delete', {'id': car.id}) }}" >
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ car.id) }}">
                             <button class="btn btn-primary">Delete</button>
