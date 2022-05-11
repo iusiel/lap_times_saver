@@ -4,7 +4,9 @@ export default {
   props: ['currentRoute'],
   data() {
     return {
-        logoutLink: `${getBaseUrl()}logout`
+        currentRoute: window.location.href,
+        gameLink: `${getBaseUrl()}game/`,
+        logoutLink: `${getBaseUrl()}logout/`
     }
   },
 }
@@ -20,10 +22,7 @@ export default {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Link</a>
+                        <a v-bind:class="['nav-link', currentRoute === gameLink ? 'active': '']" aria-current="page" v-bind:href="gameLink">Game</a>
                     </li>
                 </ul>
                 <a class="nav-link" v-bind:href="logoutLink">Logout</a>
