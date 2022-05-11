@@ -1,11 +1,11 @@
 <script>
 import getBaseUrl from './../services/GetBaseUrl.js';
 export default {
-  props: ['currentRoute'],
   data() {
     return {
         currentRoute: window.location.href,
         gameLink: `${getBaseUrl()}game/`,
+        carLink: `${getBaseUrl()}car/`,
         logoutLink: `${getBaseUrl()}logout/`
     }
   },
@@ -22,7 +22,10 @@ export default {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a v-bind:class="['nav-link', currentRoute === gameLink ? 'active': '']" aria-current="page" v-bind:href="gameLink">Game</a>
+                        <a v-bind:class="['nav-link', currentRoute === gameLink ? 'active': '']" aria-current="page" v-bind:href="gameLink">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a v-bind:class="['nav-link', currentRoute === carLink ? 'active': '']" aria-current="page" v-bind:href="carLink">Cars</a>
                     </li>
                 </ul>
                 <a class="nav-link" v-bind:href="logoutLink">Logout</a>

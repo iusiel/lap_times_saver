@@ -1,0 +1,46 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}Car index{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Car index</h1>
+
+        <div class="my-3">
+            <a class="general__text-link" href="{{ path('app_car_new') }}"><button class="btn btn-primary">Create new car</button></a>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for car in cars %}
+                <tr>
+                    <td>{{ car.id }}</td>
+                    <td>{{ car.Name }}</td>
+                    <td>{{ car.CreatedAt ? car.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ car.UpdatedAt ? car.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a class="general__text-link" href="{{ path('app_car_edit', {'id': car.id}) }}"><button class="btn btn-primary">Edit</button></a>
+                        <form class="d-inline form__delete" method="post" action="{{ path('app_car_delete', {'id': car.id}) }}" >
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ car.id) }}">
+                            <button class="btn btn-primary">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
