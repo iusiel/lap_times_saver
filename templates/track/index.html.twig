@@ -1,0 +1,47 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}Track index{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Track index</h1>
+
+        <div class="my-3">
+            <a class="general__text-link" href="{{ path('app_track_new') }}"><button class="btn btn-primary">Create new track</button></a>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for track in tracks %}
+                <tr>
+                    <td>{{ track.id }}</td>
+                    <td>{{ track.Name }}</td>
+                    <td>{{ track.CreatedAt ? track.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ track.UpdatedAt ? track.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a class="general__text-link" href="{{ path('app_track_edit', {'id': track.id}) }}"><button class="btn btn-primary">Edit</button></a>
+                        <form class="d-inline form__delete" method="post" action="{{ path('app_track_delete', {'id': track.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ track.id) }}">
+                            <button class="btn btn-primary">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

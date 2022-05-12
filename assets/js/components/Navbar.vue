@@ -6,6 +6,7 @@ export default {
         currentRoute: window.location.href,
         gameLink: `${getBaseUrl()}game/`,
         carLink: `${getBaseUrl()}car/`,
+        trackLink: `${getBaseUrl()}track/`,
         logoutLink: `${getBaseUrl()}logout/`
     }
   },
@@ -26,6 +27,9 @@ export default {
                     </li>
                     <li class="nav-item">
                         <a v-bind:class="['nav-link', currentRoute === carLink ? 'active': '']" aria-current="page" v-bind:href="carLink">Cars</a>
+                    </li>
+                    <li class="nav-item">
+                        <a v-bind:class="['nav-link', currentRoute === trackLink ? 'active': '']" aria-current="page" v-bind:href="trackLink">Tracks</a>
                     </li>
                 </ul>
                 <a class="nav-link" v-bind:href="logoutLink">Logout</a>
