@@ -31,6 +31,8 @@ class TrackController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $track->setCreatedAt(new \DateTime());
+            $track->setUpdatedAt(new \DateTime());
             $trackRepository->add($track);
             return $this->redirectToRoute('app_track_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -56,6 +58,7 @@ class TrackController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $track->setUpdatedAt(new \DateTime());
             $trackRepository->add($track);
             return $this->redirectToRoute('app_track_index', [], Response::HTTP_SEE_OTHER);
         }
