@@ -28,8 +28,11 @@
                     <td>{{ track.CreatedAt ? track.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ track.UpdatedAt ? track.UpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
-                        <a href="{{ path('app_track_show', {'id': track.id}) }}">show</a>
-                        <a href="{{ path('app_track_edit', {'id': track.id}) }}">edit</a>
+                        <a class="general__text-link" href="{{ path('app_track_edit', {'id': track.id}) }}"><button class="btn btn-primary">Edit</button></a>
+                        <form class="d-inline form__delete" method="post" action="{{ path('app_track_delete', {'id': track.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ track.id) }}">
+                            <button class="btn btn-primary">Delete</button>
+                        </form>
                     </td>
                 </tr>
             {% else %}
