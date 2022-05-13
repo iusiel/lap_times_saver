@@ -23,7 +23,7 @@ class TracksDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/track/");
         $this->assertResponseIsSuccessful();
@@ -33,7 +33,7 @@ class TracksDashboardTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/track/new");
         $this->assertResponseIsSuccessful();
@@ -44,7 +44,7 @@ class TracksDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/track/new", [
             'track' => [
@@ -59,7 +59,7 @@ class TracksDashboardTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/track/1/edit");
         $this->assertResponseIsSuccessful();
@@ -71,7 +71,7 @@ class TracksDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/track/1/edit", [
             'track' => [
@@ -87,7 +87,7 @@ class TracksDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/track/1");
         $this->assertResponseRedirects('/track/');

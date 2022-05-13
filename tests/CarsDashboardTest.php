@@ -25,7 +25,7 @@ class CarsDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $urlGenerator = $container->get(UrlHelper::class);
         $crawler = $client->request('GET', "/car/");
@@ -36,7 +36,7 @@ class CarsDashboardTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/car/new");
         $this->assertResponseIsSuccessful();
@@ -47,7 +47,7 @@ class CarsDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/car/new", [
             'car' => [
@@ -62,7 +62,7 @@ class CarsDashboardTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/car/1/edit");
         $this->assertResponseIsSuccessful();
@@ -74,7 +74,7 @@ class CarsDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/car/1/edit", [
             'car' => [
@@ -90,7 +90,7 @@ class CarsDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/car/1");
         $urlGenerator = $container->get(UrlHelper::class);

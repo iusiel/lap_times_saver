@@ -25,7 +25,7 @@ class GamesDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $urlGenerator = $container->get(UrlHelper::class);
         $crawler = $client->request('GET', "/game/");
@@ -36,7 +36,7 @@ class GamesDashboardTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/game/new");
         $this->assertResponseIsSuccessful();
@@ -47,7 +47,7 @@ class GamesDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/game/new", [
             'game' => [
@@ -62,7 +62,7 @@ class GamesDashboardTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/game/1/edit");
         $this->assertResponseIsSuccessful();
@@ -74,7 +74,7 @@ class GamesDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/game/1/edit", [
             'game' => [
@@ -90,7 +90,7 @@ class GamesDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->find(1);
+        $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/game/1");
         $urlGenerator = $container->get(UrlHelper::class);
