@@ -13,26 +13,36 @@ class LapTime
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\OneToOne(targetEntity: Game::class, cascade: ['persist', 'remove'])]
+    #[ORM\Column(type: 'datetime')]
+    private $Date;
+
+    #[ORM\ManyToOne(targetEntity: Game::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $Game;
 
-    #[ORM\OneToOne(targetEntity: Car::class, cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Car::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $Car;
 
-    #[ORM\OneToOne(targetEntity: Track::class, cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Track::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $Track;
 
-    #[ORM\Column(type: 'datetime')]
-    private $Date;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Time;
+
+    #[ORM\Column(type: 'boolean')]
+    private $IsPractice;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $ExtraNotes;
 
     #[ORM\Column(type: 'datetime')]
     private $CreatedAt;
 
     #[ORM\Column(type: 'datetime')]
     private $UpdatedAt;
+
 
     public function getId(): ?int
     {
@@ -107,6 +117,42 @@ class LapTime
     public function setUpdatedAt(\DateTimeInterface $UpdatedAt): self
     {
         $this->UpdatedAt = $UpdatedAt;
+
+        return $this;
+    }
+
+    public function getTime(): ?string
+    {
+        return $this->Time;
+    }
+
+    public function setTime(string $Time): self
+    {
+        $this->Time = $Time;
+
+        return $this;
+    }
+
+    public function getIsPractice(): ?bool
+    {
+        return $this->IsPractice;
+    }
+
+    public function setIsPractice(bool $IsPractice): self
+    {
+        $this->IsPractice = $IsPractice;
+
+        return $this;
+    }
+
+    public function getExtraNotes(): ?string
+    {
+        return $this->ExtraNotes;
+    }
+
+    public function setExtraNotes(string $ExtraNotes): self
+    {
+        $this->ExtraNotes = $ExtraNotes;
 
         return $this;
     }
