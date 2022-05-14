@@ -1,0 +1,16 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}Edit Lap Time id:{{ lap_time.Id}}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Edit Lap Time id:{{ lap_time.Id}}</h1>
+
+        {{ include('lap_time/_form.html.twig', {'button_label': 'Update'}) }}
+
+        {{ include('lap_time/_delete_form.html.twig') }}
+
+        <a href="{{ path('app_lap_time_index') }}"><button class="btn btn-primary">Back to list</button></a>
+
+    </div>
+{% endblock %}
