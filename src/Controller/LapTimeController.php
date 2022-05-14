@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\LapTime;
 use App\Form\LapTimeType;
 use App\Repository\LapTimeRepository;
+use App\Services\LapTimeDashboardAccess;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +16,20 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/lap_time')]
 class LapTimeController extends AbstractController
 {
+    private $lapTimeDashboardAccess;
+
+    public function __construct(LapTimeDashboardAccess $lapTimeDashboardAccess)
+    {
+        $this->lapTimeDashboardAccess = $lapTimeDashboardAccess;
+    }
+
     #[Route('/', name: 'app_lap_time_index', methods: ['GET'])]
     public function index(LapTimeRepository $lapTimeRepository): Response
     {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+
         return $this->render('lap_time/index.html.twig', [
             'lap_times' => $lapTimeRepository->findAll(),
         ]);
@@ -26,6 +38,10 @@ class LapTimeController extends AbstractController
     #[Route('/new', name: 'app_lap_time_new', methods: ['GET', 'POST'])]
     public function new(Request $request, LapTimeRepository $lapTimeRepository): Response
     {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+
         $lapTime = new LapTime();
         $form = $this->createForm(LapTimeType::class, $lapTime);
         $form->handleRequest($request);
@@ -46,6 +62,10 @@ class LapTimeController extends AbstractController
     #[Route('/{id}', name: 'app_lap_time_show', methods: ['GET'])]
     public function show(LapTime $lapTime): Response
     {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+
         return $this->render('lap_time/show.html.twig', [
             'lap_time' => $lapTime,
         ]);
@@ -54,6 +74,10 @@ class LapTimeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_lap_time_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, LapTime $lapTime, LapTimeRepository $lapTimeRepository): Response
     {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+
         $form = $this->createForm(LapTimeType::class, $lapTime);
         $form->handleRequest($request);
 
@@ -72,6 +96,10 @@ class LapTimeController extends AbstractController
     #[Route('/{id}', name: 'app_lap_time_delete', methods: ['POST'])]
     public function delete(Request $request, LapTime $lapTime, LapTimeRepository $lapTimeRepository): Response
     {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+        
         if ($this->isCsrfTokenValid('delete'.$lapTime->getId(), $request->request->get('_token'))) {
             $lapTimeRepository->remove($lapTime);
         }
