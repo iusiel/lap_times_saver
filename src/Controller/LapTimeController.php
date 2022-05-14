@@ -59,18 +59,6 @@ class LapTimeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_lap_time_show', methods: ['GET'])]
-    public function show(LapTime $lapTime): Response
-    {
-        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('lap_time/show.html.twig', [
-            'lap_time' => $lapTime,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_lap_time_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, LapTime $lapTime, LapTimeRepository $lapTimeRepository): Response
     {
@@ -99,7 +87,7 @@ class LapTimeController extends AbstractController
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }
-        
+
         if ($this->isCsrfTokenValid('delete'.$lapTime->getId(), $request->request->get('_token'))) {
             $lapTimeRepository->remove($lapTime);
         }
