@@ -45,6 +45,14 @@ class TrackRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOne(): ?Track
+    {
+        return $this->createQueryBuilder('t')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return Track[] Returns an array of Track objects
     //  */
