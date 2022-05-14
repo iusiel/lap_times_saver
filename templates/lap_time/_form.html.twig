@@ -1,0 +1,59 @@
+{{ form_start(form) }}
+    <div class="mb-2">
+    {{ form_label(form.Date) }}
+    {{ form_widget(form.Date) }}
+    </div>
+    <div class="form__error-message mb-2">
+    {{ form_errors(form.Date) }}
+    </div>
+
+    <div class="mb-2">
+    {{ form_label(form.Game) }}
+    {{ form_widget(form.Game) }}
+    </div>
+    <div class="form__error-message mb-2">
+    {{ form_errors(form.Game) }}
+    </div>
+
+    <div class="mb-2">
+    {{ form_label(form.Car) }}
+    {{ form_widget(form.Car) }}
+    </div>
+    <div class="form__error-message mb-2">
+    {{ form_errors(form.Car) }}
+    </div>
+
+    <div class="mb-2">
+    {{ form_label(form.Track) }}
+    {{ form_widget(form.Track) }}
+    </div>
+    <div class="form__error-message mb-2">
+    {{ form_errors(form.Track) }}
+    </div>
+
+    <div class="mb-2">
+    {{ form_label(form.Time) }}
+    {{ form_widget(form.Time) }}
+    </div>
+    <div class="form__error-message mb-2">
+    {{ form_errors(form.Time) }}
+    </div>
+
+    <div class="mb-2">
+    {{ form_label(form.IsPractice) }}
+    {{ form_widget(form.IsPractice) }}
+    </div>
+    <div class="form__error-message mb-2">
+    {{ form_errors(form.IsPractice) }}
+    </div>
+
+    <div class="mb-2">
+    {{ form_label(form.ExtraNotes) }}
+    {{ form_widget(form.ExtraNotes) }}
+    </div>
+    <div class="form__error-message mb-2">
+    {{ form_errors(form.ExtraNotes) }}
+    </div>
+
+    <button class="btn btn-primary my-3">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,13 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}New Lap Time{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Create new Lap Time</h1>
+
+        {{ include('lap_time/_form.html.twig') }}
+
+        <a href="{{ path('app_lap_time_index') }}"><button class="btn btn-primary">Back to list</button></a>
+    </div>
+{% endblock %}

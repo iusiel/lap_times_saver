@@ -1,0 +1,51 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}Lap Time index{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Lap Time index</h1>
+
+        <div class="my-3">
+            <a class="general__text-link" href="{{ path('app_lap_time_new') }}"><button class="btn btn-primary">Create new lap time</button></a>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Game</th>
+                    <th>Car</th>
+                    <th>Track</th>
+                    <th>Time</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for lap_time in lap_times %}
+                <tr>
+                    <td>{{ lap_time.id }}</td>
+                    <td>{{ lap_time.Date ? lap_time.Date|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ lap_time.Game.Name }}</td>
+                    <td>{{ lap_time.Car.Name }}</td>
+                    <td>{{ lap_time.Track.Name }}</td>
+                    <td>{{ lap_time.Time }}</td>
+                    <td>
+                        <a class="general__text-link my-1" href="{{ path('app_lap_time_edit', {'id': lap_time.id}) }}"><button class="btn btn-primary">Edit</button></a>
+                        <form class="form__delete my-1" method="post" action="{{ path('app_lap_time_delete', {'id': lap_time.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ lap_time.id) }}">
+                            <button class="btn btn-primary">Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

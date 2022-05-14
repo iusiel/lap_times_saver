@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Car;
+use App\Entity\LapTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Car|null find($id, $lockMode = null, $lockVersion = null)
- * @method Car|null findOneBy(array $criteria, array $orderBy = null)
- * @method Car[]    findAll()
- * @method Car[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method LapTime|null find($id, $lockMode = null, $lockVersion = null)
+ * @method LapTime|null findOneBy(array $criteria, array $orderBy = null)
+ * @method LapTime[]    findAll()
+ * @method LapTime[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CarRepository extends ServiceEntityRepository
+class LapTimeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Car::class);
+        parent::__construct($registry, LapTime::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Car $entity, bool $flush = true): void
+    public function add(LapTime $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,24 +37,24 @@ class CarRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Car $entity, bool $flush = true): void
+    public function remove(LapTime $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();
         }
     }
-    
+
     // /**
-    //  * @return Car[] Returns an array of Car objects
+    //  * @return LapTime[] Returns an array of LapTime objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('l.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -63,10 +63,10 @@ class CarRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Car
+    public function findOneBySomeField($value): ?LapTime
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
