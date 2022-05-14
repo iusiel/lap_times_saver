@@ -21,6 +21,6 @@ class LapTimeDashboardAccess
 
     public function allowAccess()
     {
-        return (!empty($this->gameRepository->findOne()) && !empty($this->carRepository->findOne()) && !empty($this->trackRepository->findOne()));
+        return (!empty($this->gameRepository->findAll()) && !empty($this->carRepository->findAll()) && !empty($this->trackRepository->findAll()));
     }
 }

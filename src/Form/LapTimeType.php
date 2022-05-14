@@ -90,7 +90,6 @@ class LapTimeType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['max' => 255])
                 ],
             ])
             ->add('ExtraNotes', TextType::class, [
@@ -110,6 +109,7 @@ class LapTimeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LapTime::class,
+            'csrf_protection' => ($this->kernelInterface === 'test') ? false : true,
         ]);
     }
 }

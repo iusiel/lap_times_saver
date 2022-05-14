@@ -45,14 +45,6 @@ class GameRepository extends ServiceEntityRepository
         }
     }
 
-    public function findOne(): ?Game
-    {
-        return $this->createQueryBuilder('g')
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */

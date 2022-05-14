@@ -44,15 +44,7 @@ class CarRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
-    public function findOne(): ?Car
-    {
-        return $this->createQueryBuilder('c')
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-
+    
     // /**
     //  * @return Car[] Returns an array of Car objects
     //  */
