@@ -15,6 +15,7 @@
                     <th>Personal Best</th>
                     <th>Average Lap Time</th>
                     <th>Median Lap Time</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
         {%for group in summary %}
@@ -25,6 +26,7 @@
                 <td>{{ group.personalBestLapTime}}</td>
                 <td>{{ group.averageLapTime }}</td>
                 <td>{{ group.medianLapTime }}</td>
+                <td></td>
             </tr>
         {% endfor %}
         </table>

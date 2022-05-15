@@ -13,6 +13,6 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        return $this->redirectToRoute('app_lap_time_index');
+        return $this->redirectToRoute('app_lap_time_summary');
     }
 }

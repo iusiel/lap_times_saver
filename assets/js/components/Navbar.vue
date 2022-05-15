@@ -8,6 +8,7 @@ export default {
         carLink: `${getBaseUrl()}car/`,
         trackLink: `${getBaseUrl()}track/`,
         laptimeLink: `${getBaseUrl()}lap_time/`,
+        summaryLink: `${getBaseUrl()}lap_time/summary`,
         logoutLink: `${getBaseUrl()}logout/`
     }
   },
@@ -23,6 +24,9 @@ export default {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a v-bind:class="['nav-link', currentRoute === summaryLink ? 'active': '']" aria-current="page" v-bind:href="summaryLink">Summary</a>
+                    </li>
                     <li class="nav-item">
                         <a v-bind:class="['nav-link', currentRoute === laptimeLink ? 'active': '']" aria-current="page" v-bind:href="laptimeLink">Lap Times</a>
                     </li>
