@@ -12,7 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 #[IsGranted('ROLE_ADMIN')]
 #[Route('/lap_time')]
 class LapTimeController extends AbstractController
@@ -105,6 +106,43 @@ class LapTimeController extends AbstractController
 
         return $this->renderForm('lap_time/summary.html.twig', [
             'summary' => $lapTimesSummary->getSummaryForAll(),
+        ]);
+
+    }
+
+    #[Route('/chart', name: 'app_lap_time_chart', methods: ['GET'])]
+    public function showChart(Request $request, ChartBuilderInterface $chartBuilder): Response
+    {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+
+
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+
+        $chart->setData([
+            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            'datasets' => [
+                [
+                    'label' => 'My First dataset',
+                    'backgroundColor' => 'rgb(255, 99, 132)',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => [0, 10, 5, 2, 20, 30, 45],
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 100,
+                ],
+            ],
+        ]);
+
+        return $this->renderForm('lap_time/chart.html.twig', [
+            'chart' => $chart,
         ]);
 
     }
