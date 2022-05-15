@@ -1,0 +1,33 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}Lap Time Summary{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Lap Time Summary</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Game</th>
+                    <th>Track</th>
+                    <th>Car</th>
+                    <th>Personal Best</th>
+                    <th>Average Lap Time</th>
+                    <th>Median Lap Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        {%for group in summary %}
+            <tr>
+                <td>{{ group.game }}</td>
+                <td>{{ group.track }}</td>
+                <td>{{ group.car }}</td>
+                <td>{{ group.personalBestLapTime}}</td>
+                <td>{{ group.averageLapTime }}</td>
+                <td>{{ group.medianLapTime }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        </table>
+{% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\LapTime;
 use App\Form\LapTimeType;
 use App\Repository\LapTimeRepository;
 use App\Services\LapTimeDashboardAccess;
+use App\Services\LapTimesSummary;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,5 +94,18 @@ class LapTimeController extends AbstractController
         }
 
         return $this->redirectToRoute('app_lap_time_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/summary', name: 'app_lap_time_summary', methods: ['GET'])]
+    public function showSummary(Request $request, LapTimesSummary $lapTimesSummary): Response
+    {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->renderForm('lap_time/summary.html.twig', [
+            'summary' => $lapTimesSummary->getSummaryForAll(),
+        ]);
+
     }
 }

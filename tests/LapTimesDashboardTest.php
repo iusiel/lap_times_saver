@@ -26,7 +26,6 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $urlGenerator = $container->get(UrlHelper::class);
         $crawler = $client->request('GET', "/lap_time/");
         $this->assertResponseIsSuccessful();
     }
@@ -60,7 +59,6 @@ class LapTimesDashboardTest extends WebTestCase
 
             ],
         ]);
-        $urlGenerator = $container->get(UrlHelper::class);
         $this->assertResponseRedirects('/lap_time/');
     }
 
@@ -94,7 +92,6 @@ class LapTimesDashboardTest extends WebTestCase
 
             ],
         ]);
-        $urlGenerator = $container->get(UrlHelper::class);
         $this->assertResponseRedirects('/lap_time/');
     }
 
@@ -106,7 +103,17 @@ class LapTimesDashboardTest extends WebTestCase
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $crawler = $client->request('POST', "/lap_time/1");
-        $urlGenerator = $container->get(UrlHelper::class);
         $this->assertResponseRedirects('/lap_time/');
+    }
+
+    public function testShowSummaryPage(): void
+    {
+        $client = static::createClient();
+        $container = static::getContainer();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOne();
+        $client->loginUser($testUser);
+        $crawler = $client->request('GET', "/lap_time/summary");
+        $this->assertResponseIsSuccessful();
     }
 }
