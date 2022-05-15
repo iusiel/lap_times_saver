@@ -2,9 +2,11 @@
     "devDependencies": {
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
+        "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
         "@symfony/webpack-encore": "^1.7.0",
         "@testing-library/vue": "^6.4.2",
         "@vitejs/plugin-vue": "^2.3.1",
+        "chart.js": "^3.4.1",
         "core-js": "^3.0.0",
         "happy-dom": "^2.55.0",
         "regenerator-runtime": "^0.13.2",
