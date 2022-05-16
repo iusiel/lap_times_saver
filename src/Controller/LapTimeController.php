@@ -117,17 +117,16 @@ class LapTimeController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
 
         $chart->setData([
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            'labels' => ['May 1, 2022', 'May 2, 2022', 'May 3, 2022', 'May 4, 2022', 'May 5, 2022', 'May 6, 2022', 'May 7, 2022'],
             'datasets' => [
                 [
                     'label' => 'My First dataset',
                     'backgroundColor' => 'rgb(255, 99, 132)',
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [0, 10, 5, 2, 20, 30, 45],
+                    'data' => [strtotime("03:00:00"), strtotime("03:00:00") . ".123", strtotime("03:00:00"), strtotime("03:00:00"), strtotime("03:00:00"), strtotime("03:00:00"), strtotime("03:00:00")],
                 ],
             ],
         ]);
@@ -135,8 +134,11 @@ class LapTimeController extends AbstractController
         $chart->setOptions([
             'scales' => [
                 'y' => [
-                    'suggestedMin' => 0,
-                    'suggestedMax' => 100,
+                    // 'ticks' => [
+                    //     'callback' => 'Test',
+                    // ],
+                    // 'suggestedMin' => 0,
+                    // 'suggestedMax' => 100,
                 ],
             ],
         ]);
