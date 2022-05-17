@@ -21,9 +21,9 @@ class LapTimesSummary
             $groupName = $lapTime->getGame()->getName() . "-" . $lapTime->getTrack()->getName() . "-" . $lapTime->getCar()->getName();
             if (empty($groupedLapTimes[$groupName])) {
                 $groupedLapTimes[$groupName] = [
-                    'game' => $lapTime->getGame()->getName(),
-                    'track' => $lapTime->getTrack()->getName(),
-                    'car' => $lapTime->getCar()->getName(),
+                    'game' => $lapTime->getGame(),
+                    'track' => $lapTime->getTrack(),
+                    'car' => $lapTime->getCar(),
                     'lap_times' => [],
                 ];
             }

@@ -20,13 +20,13 @@
             </thead>
         {%for group in summary %}
             <tr>
-                <td>{{ group.game }}</td>
-                <td>{{ group.track }}</td>
-                <td>{{ group.car }}</td>
+                <td>{{ group.game.Name }}</td>
+                <td>{{ group.track.Name }}</td>
+                <td>{{ group.car.Name }}</td>
                 <td>{{ group.personalBestLapTime}}</td>
                 <td>{{ group.averageLapTime }}</td>
                 <td>{{ group.medianLapTime }}</td>
-                <td></td>
+                <td><a href="{{ path('app_lap_time_chart', {'game': group.game.id, 'track': group.track.id, 'car': group.car.id}) }}"><button class="btn btn-primary">See Related Chart</button></a></td>
             </tr>
         {% endfor %}
         </table>
