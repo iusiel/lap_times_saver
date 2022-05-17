@@ -19,7 +19,7 @@ class LapTimesDashboardTest extends WebTestCase
     }
 
 
-    public function tesLapTimeDashboard(): void
+    public function testLapTimeDashboard(): void
     {
         $client = static::createClient();
         $container = static::getContainer();
@@ -115,5 +115,29 @@ class LapTimesDashboardTest extends WebTestCase
         $client->loginUser($testUser);
         $crawler = $client->request('GET', "/lap_time/summary");
         $this->assertResponseIsSuccessful();
+    }
+
+    public function testShowChartWithFilterPage(): void
+    {
+        $client = static::createClient();
+        $container = static::getContainer();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOne();
+        $client->loginUser($testUser);
+        $crawler = $client->request('GET', "/lap_time/chart?game=1&car=1&track=1");
+        $this->assertResponseIsSuccessful();
+
+    }
+
+    public function testShowChartWithNoFilterPage(): void
+    {
+        $client = static::createClient();
+        $container = static::getContainer();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOne();
+        $client->loginUser($testUser);
+        $crawler = $client->request('GET', "/lap_time/chart");
+        $this->assertResponseRedirects('/lap_time/summary');
+
     }
 }

@@ -13,21 +13,30 @@ class LapTimesSummary
         $this->lapTimeRepository = $lapTimeRepository;    
     }
 
+    public function getSummaryFor(array $filter)
+    {
+       return $this->getSummary($this->lapTimeRepository->findBy($filter)); 
+    }
+
     public function getSummaryForAll()
     {
-        $allLapTimes = $this->lapTimeRepository->findAll();
+        return $this->getSummary($this->lapTimeRepository->findAll());
+    }
+
+    private function getSummary($laptimeEntities)
+    {
         $groupedLapTimes = [];
-        foreach ($allLapTimes as $lapTime) {
+        foreach ($laptimeEntities as $lapTime) {
             $groupName = $lapTime->getGame()->getName() . "-" . $lapTime->getTrack()->getName() . "-" . $lapTime->getCar()->getName();
             if (empty($groupedLapTimes[$groupName])) {
                 $groupedLapTimes[$groupName] = [
-                    'game' => $lapTime->getGame()->getName(),
-                    'track' => $lapTime->getTrack()->getName(),
-                    'car' => $lapTime->getCar()->getName(),
+                    'game' => $lapTime->getGame(),
+                    'track' => $lapTime->getTrack(),
+                    'car' => $lapTime->getCar(),
                     'lap_times' => [],
                 ];
             }
-            $groupedLapTimes[$groupName]['lap_times'][] = $lapTime->getTime();
+            $groupedLapTimes[$groupName]['lap_times'][] = $lapTime;
         }
 
         foreach ($groupedLapTimes as &$group) {
@@ -44,9 +53,9 @@ class LapTimesSummary
         $total = 0;
         $milliSecondsTotal = 0;
         foreach ($lapTimes as $lapTime) {
-            $explodedTime = explode(".", $lapTime); // try to get millisecond in time. 2nd element should contain milliseconds if it exists
+            $explodedTime = explode(".", $lapTime->getTime()); // try to get millisecond in time. 2nd element should contain milliseconds if it exists
             $milliSecondsTotal += (!empty($explodedTime[1])) ? floatval($explodedTime[1]) : 0;
-            $total += strtotime($lapTime);
+            $total += strtotime($lapTime->getTime());
         }
         $averageMilliseconds = round($milliSecondsTotal / 1000 / count($lapTimes), 3);
         $averageMilliseconds = array_sum(explode(".", $averageMilliseconds));
@@ -57,9 +66,9 @@ class LapTimesSummary
     {
         $arrayToSort = [];
         foreach ($lapTimes as $lapTime) {
-            $explodedTime = explode(".", $lapTime); // try to get millisecond in time. 2nd element should contain milliseconds if it exists
+            $explodedTime = explode(".", $lapTime->getTime()); // try to get millisecond in time. 2nd element should contain milliseconds if it exists
             $milliSecondsTotal = (!empty($explodedTime[1])) ? floatval($explodedTime[1] / 1000) : 0;
-            $arrayToSort[$lapTime] = strtotime($explodedTime[0]) + $milliSecondsTotal;
+            $arrayToSort[$lapTime->getTime()] = strtotime($explodedTime[0]) + $milliSecondsTotal;
         }
         uasort($arrayToSort, function ($a, $b) {
             if ($a == $b) {

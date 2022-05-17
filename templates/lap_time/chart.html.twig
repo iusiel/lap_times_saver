@@ -1,0 +1,10 @@
+{% extends 'admin.layout.html.twig' %}
+
+{% block title %}Lap Time Chart{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Lap Time Chart</h1>
+
+       {{ render_chart(chart, {'data-controller': 'mychart'}) }}
+{% endblock %}

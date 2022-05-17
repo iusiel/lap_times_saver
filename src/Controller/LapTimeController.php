@@ -12,7 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 #[IsGranted('ROLE_ADMIN')]
 #[Route('/lap_time')]
 class LapTimeController extends AbstractController
@@ -105,6 +106,70 @@ class LapTimeController extends AbstractController
 
         return $this->renderForm('lap_time/summary.html.twig', [
             'summary' => $lapTimesSummary->getSummaryForAll(),
+        ]);
+
+    }
+
+    #[Route('/chart', name: 'app_lap_time_chart', methods: ['GET'])]
+    public function showChart(Request $request, ChartBuilderInterface $chartBuilder, LapTimesSummary $lapTimesSummary): Response
+    {
+        if ($this->lapTimeDashboardAccess->allowAccess() === false) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        $filter = [
+            'Game' => $request->query->get('game'),
+            'Car' => $request->query->get('car'),
+            'Track' => $request->query->get('track'),
+        ];
+
+        $summary = $lapTimesSummary->getSummaryFor($filter);
+        if (empty($summary)) {
+            return $this->redirectToRoute('app_lap_time_summary');   
+        }
+
+        // prepare labels and datasets
+        foreach ($summary as $group) {
+            $label = "Lap times for " . $group['game']->getName() . " - " . $group['car']->getName() . " - " . $group['track']->getName();
+            
+            $xAxis = [];
+            $yAxis = [];
+            foreach ($group['lap_times'] as $lapTime) {
+                $xAxis[] = $lapTime->getDate()->format("F d, Y");
+                $exploded = explode(".", $lapTime->getTime());
+                $milliSeconds = (!empty($exploded[1])) ? "." . $exploded[1] : "";
+                $yAxis[] = strtotime($lapTime->getTime()) . $milliSeconds;
+            }
+        }
+        // end prepare labels and datasets
+ 
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $chart->setData([
+            'labels' => $xAxis,
+            'datasets' => [
+                [
+                    'label' => $label,
+                    'backgroundColor' => 'rgb(255, 99, 132)',
+                    'borderColor' => 'rgb(255, 99, 132)',
+                    'data' => $yAxis,
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    // 'ticks' => [
+                    //     'callback' => 'Test',
+                    // ],
+                    // 'suggestedMin' => 0,
+                    // 'suggestedMax' => 100,
+                ],
+            ],
+        ]);
+
+        return $this->renderForm('lap_time/chart.html.twig', [
+            'chart' => $chart,
         ]);
 
     }
