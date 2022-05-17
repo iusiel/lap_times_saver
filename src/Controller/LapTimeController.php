@@ -111,22 +111,44 @@ class LapTimeController extends AbstractController
     }
 
     #[Route('/chart', name: 'app_lap_time_chart', methods: ['GET'])]
-    public function showChart(Request $request, ChartBuilderInterface $chartBuilder): Response
+    public function showChart(Request $request, ChartBuilderInterface $chartBuilder, LapTimesSummary $lapTimesSummary): Response
     {
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }
 
-        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
+        $filter = [
+            'Game' => $request->query->get('game'),
+            'Car' => $request->query->get('car'),
+            'Track' => $request->query->get('track'),
+        ];
 
+        $summary = $lapTimesSummary->getSummaryFor($filter);
+
+        // prepare labels and datasets
+        foreach ($summary as $group) {
+            $label = "Lap times for " . $group['game']->getName() . " - " . $group['car']->getName() . " - " . $group['track']->getName();
+            
+            $xAxis = [];
+            $yAxis = [];
+            foreach ($group['lap_times'] as $lapTime) {
+                $xAxis[] = $lapTime->getDate()->format("F d, Y");
+                $exploded = explode(".", $lapTime->getTime());
+                $milliSeconds = (!empty($exploded[1])) ? "." . $exploded[1] : "";
+                $yAxis[] = strtotime($lapTime->getTime()) . $milliSeconds;
+            }
+        }
+        // end prepare labels and datasets
+ 
+        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
-            'labels' => ['May 1, 2022', 'May 2, 2022', 'May 3, 2022', 'May 4, 2022', 'May 5, 2022', 'May 6, 2022', 'May 7, 2022'],
+            'labels' => $xAxis,
             'datasets' => [
                 [
-                    'label' => 'My First dataset',
+                    'label' => $label,
                     'backgroundColor' => 'rgb(255, 99, 132)',
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [strtotime("00:03:00"), strtotime("00:03:00") . ".123", strtotime("00:03:00"), strtotime("00:03:00"), strtotime("00:03:00"), strtotime("00:03:00"), strtotime("00:03:00")],
+                    'data' => $yAxis,
                 ],
             ],
         ]);
