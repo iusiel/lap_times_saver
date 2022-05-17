@@ -126,7 +126,7 @@ class LapTimeController extends AbstractController
                     'label' => 'My First dataset',
                     'backgroundColor' => 'rgb(255, 99, 132)',
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [strtotime("03:00:00"), strtotime("03:00:00") . ".123", strtotime("03:00:00"), strtotime("03:00:00"), strtotime("03:00:00"), strtotime("03:00:00"), strtotime("03:00:00")],
+                    'data' => [strtotime("00:03:00"), strtotime("00:03:00") . ".123", strtotime("00:03:00"), strtotime("00:03:00"), strtotime("00:03:00"), strtotime("00:03:00"), strtotime("00:03:00")],
                 ],
             ],
         ]);
