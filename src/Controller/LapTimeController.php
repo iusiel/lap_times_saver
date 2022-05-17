@@ -124,6 +124,9 @@ class LapTimeController extends AbstractController
         ];
 
         $summary = $lapTimesSummary->getSummaryFor($filter);
+        if (empty($summary)) {
+            return $this->redirectToRoute('app_lap_time_summary');   
+        }
 
         // prepare labels and datasets
         foreach ($summary as $group) {
