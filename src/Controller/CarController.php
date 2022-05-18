@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Form\CarType;
 use App\Repository\CarRepository;
+use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,12 @@ class CarController extends AbstractController
     #[Route('/', name: 'app_car_index', methods: ['GET'])]
     public function index(CarRepository $carRepository): Response
     {
-        return $this->render('car/index.html.twig', [
+        return $this->render(
+            'car/index.html.twig',
+            [
             'cars' => $carRepository->findAll(),
-        ]);
+            ]
+        );
     }
 
     #[Route('/new', name: 'app_car_new', methods: ['GET', 'POST'])]
@@ -31,16 +35,19 @@ class CarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $car->setCreatedAt(new \DateTime());
-            $car->setUpdatedAt(new \DateTime());
+            $car->setCreatedAt(new DateTime());
+            $car->setUpdatedAt(new DateTime());
             $carRepository->add($car);
             return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('car/new.html.twig', [
+        return $this->renderForm(
+            'car/new.html.twig',
+            [
             'car' => $car,
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{id}/edit', name: 'app_car_edit', methods: ['GET', 'POST'])]
@@ -50,21 +57,24 @@ class CarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $car->setUpdatedAt(new \DateTime());
+            $car->setUpdatedAt(new DateTime());
             $carRepository->add($car);
             return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('car/edit.html.twig', [
+        return $this->renderForm(
+            'car/edit.html.twig',
+            [
             'car' => $car,
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{id}', name: 'app_car_delete', methods: ['POST'])]
     public function delete(Request $request, Car $car, CarRepository $carRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $car->getId(), $request->request->get('_token'))) {
             $carRepository->remove($car);
         }
 

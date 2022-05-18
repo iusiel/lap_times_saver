@@ -5,6 +5,11 @@ namespace App\Entity;
 use App\Repository\TrackRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ *
+ */
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
 class Track
 {

@@ -10,12 +10,12 @@ class LapTimesSummary
 
     public function __construct(LapTimeRepository $lapTimeRepository)
     {
-        $this->lapTimeRepository = $lapTimeRepository;    
+        $this->lapTimeRepository = $lapTimeRepository;
     }
 
     public function getSummaryFor(array $filter)
     {
-       return $this->getSummary($this->lapTimeRepository->findBy($filter)); 
+        return $this->getSummary($this->lapTimeRepository->findBy($filter));
     }
 
     public function getSummaryForAll()
@@ -70,12 +70,15 @@ class LapTimesSummary
             $milliSecondsTotal = (!empty($explodedTime[1])) ? floatval($explodedTime[1] / 1000) : 0;
             $arrayToSort[$lapTime->getTime()] = strtotime($explodedTime[0]) + $milliSecondsTotal;
         }
-        uasort($arrayToSort, function ($a, $b) {
-            if ($a == $b) {
-                return 0;
+        uasort(
+            $arrayToSort,
+            function ($a, $b) {
+                if ($a == $b) {
+                    return 0;
+                }
+                return ($a < $b) ? -1 : 1;
             }
-            return ($a < $b) ? -1 : 1;
-        });
+        );
         return $arrayToSort; //return array sorted by fastest lap time. Readable lap time is stored in the index of the array
     }
 

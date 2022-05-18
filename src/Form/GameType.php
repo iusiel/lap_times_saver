@@ -19,10 +19,17 @@ class GameType extends AbstractType
         $this->kernelInterface = $env;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name', TextType::class, [
+            ->add(
+                'Name',
+                TextType::class,
+                [
                 'attr' => [
                     'class' => 'form-control',
                     'maxlength' => 255,
@@ -31,16 +38,18 @@ class GameType extends AbstractType
                     new NotBlank(),
                     new Length(['max' => 255])
                 ],
-            ])
-        ;
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        
-        $resolver->setDefaults([
+
+        $resolver->setDefaults(
+            [
             'data_class' => Game::class,
             'csrf_protection' => ($this->kernelInterface === 'test') ? false : true,
-        ]);
+            ]
+        );
     }
 }

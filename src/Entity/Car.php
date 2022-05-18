@@ -5,6 +5,11 @@ namespace App\Entity;
 use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ *
+ */
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 class Car
 {
