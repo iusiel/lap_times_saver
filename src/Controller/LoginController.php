@@ -16,7 +16,9 @@ class LoginController extends AbstractController
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         $user = $this->getUser();
-        if (!empty($user)) return $this->redirectToRoute('app_game'); //redirect to game dashboard if user is already logged in
+        if (!empty($user)) {
+            return $this->redirectToRoute('app_game'); //redirect to game dashboard if user is already logged in
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -24,10 +26,13 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('login/index.html.twig', [
+        return $this->render(
+            'login/index.html.twig',
+            [
             'last_username' => $lastUsername,
             'error'         => $error,
-        ]);
+            ]
+        );
     }
 
     #[Route('/register', name: 'app_register')]
@@ -35,7 +40,7 @@ class LoginController extends AbstractController
     {
         $user = new User();
         $plaintextPassword = '123456';
-    
+
         // hash the password (based on the security.yaml config for the $user class)
         $hashedPassword = $passwordHasher->hashPassword(
             $user,

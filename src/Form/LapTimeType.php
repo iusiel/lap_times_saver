@@ -17,6 +17,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ *
+ */
 class LapTimeType extends AbstractType
 {
     private $kernelInterface;
@@ -26,18 +30,30 @@ class LapTimeType extends AbstractType
         $this->kernelInterface = $env;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Date', DateType::class, [
+            ->add(
+                'Date',
+                DateType::class,
+                [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'attr' => [
                     'class' => 'form-control',
                     'value' => date("Y-m-d")
                 ],
-            ])
-            ->add('Game', EntityType::class, [
+                ]
+            )
+            ->add(
+                'Game',
+                EntityType::class,
+                [
                 'class' => Game::class,
                 'choice_label' => 'Name',
                 'query_builder' => function (EntityRepository $er) {
@@ -47,8 +63,12 @@ class LapTimeType extends AbstractType
                 'attr' => [
                     'class' => 'form-select',
                 ],
-            ])
-            ->add('Car', EntityType::class, [
+                ]
+            )
+            ->add(
+                'Car',
+                EntityType::class,
+                [
                 'class' => Car::class,
                 'choice_label' => 'Name',
                 'query_builder' => function (EntityRepository $er) {
@@ -58,8 +78,12 @@ class LapTimeType extends AbstractType
                 'attr' => [
                     'class' => 'form-select',
                 ],
-            ])
-            ->add('Track', EntityType::class, [
+                ]
+            )
+            ->add(
+                'Track',
+                EntityType::class,
+                [
                 'class' => Track::class,
                 'choice_label' => 'Name',
                 'query_builder' => function (EntityRepository $er) {
@@ -69,8 +93,12 @@ class LapTimeType extends AbstractType
                 'attr' => [
                     'class' => 'form-select',
                 ],
-            ])
-            ->add('Time', TextType::class, [
+                ]
+            )
+            ->add(
+                'Time',
+                TextType::class,
+                [
                 'attr' => [
                     'class' => 'form-control',
                     'maxlength' => 255,
@@ -79,8 +107,12 @@ class LapTimeType extends AbstractType
                     new NotBlank(),
                     new Length(['max' => 255])
                 ],
-            ])
-            ->add('IsPractice', ChoiceType::class, [
+                ]
+            )
+            ->add(
+                'IsPractice',
+                ChoiceType::class,
+                [
                 'attr' => [
                     'class' => 'form-select',
                 ],
@@ -91,8 +123,12 @@ class LapTimeType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                 ],
-            ])
-            ->add('ExtraNotes', TextType::class, [
+                ]
+            )
+            ->add(
+                'ExtraNotes',
+                TextType::class,
+                [
                 'attr' => [
                     'class' => 'form-control',
                     'maxlength' => 255,
@@ -101,15 +137,17 @@ class LapTimeType extends AbstractType
                     new NotBlank(),
                     new Length(['max' => 255])
                 ],
-            ])
-        ;
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => LapTime::class,
             'csrf_protection' => ($this->kernelInterface === 'test') ? false : true,
-        ]);
+            ]
+        );
     }
 }

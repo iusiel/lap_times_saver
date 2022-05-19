@@ -6,6 +6,7 @@ use App\Entity\LapTime;
 use App\Repository\CarRepository;
 use App\Repository\GameRepository;
 use App\Repository\TrackRepository;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\ByteString;
@@ -20,7 +21,7 @@ class LapTimeFixtures extends Fixture
     {
         $this->gameRepository = $gameRepository;
         $this->carRepository = $carRepository;
-        $this->trackRepository = $trackRepository;    
+        $this->trackRepository = $trackRepository;
     }
 
     public function load(ObjectManager $manager): void
@@ -29,17 +30,18 @@ class LapTimeFixtures extends Fixture
         $game = $this->gameRepository->find(1);
         $track = $this->trackRepository->find(1);
 
-        for ($k=0; $k<=5; $k++) {
+        $maxEntries = 5;
+        for ($k = 0; $k <= $maxEntries; $k++) {
             $laptime = new LapTime();
-            $laptime->setDate(new \DateTime());
+            $laptime->setDate(new DateTime());
             $laptime->setCar($car);
             $laptime->setGame($game);
             $laptime->setTrack($track);
             $laptime->setTime("02:00");
             $laptime->setIsPractice(true);
             $laptime->setExtraNotes(ByteString::fromRandom(20)->toString());
-            $laptime->setCreatedAt(new \DateTime());
-            $laptime->setUpdatedAt(new \DateTime());
+            $laptime->setCreatedAt(new DateTime());
+            $laptime->setUpdatedAt(new DateTime());
             $manager->persist($laptime);
         }
 

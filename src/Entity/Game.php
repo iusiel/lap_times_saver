@@ -5,8 +5,14 @@ namespace App\Entity;
 use App\Repository\GameRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseParameterName)
+ * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+ *
+ */
 #[ORM\Entity(repositoryClass: GameRepository::class)]
-#[UniqueEntity(fields: ['Name'],    errorPath: 'Name')]
+#[UniqueEntity(fields: ['Name'], errorPath: 'Name')]
 class Game
 {
     #[ORM\Id]

@@ -8,6 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class GroupFixtures extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * @SuppressWarnings(PHPMD)
+     */
     public function load(ObjectManager $manager)
     {
         // ...
