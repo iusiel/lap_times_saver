@@ -12,7 +12,8 @@ class GameFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        for ($k = 0; $k <= 5; $k++) {
+        $maxEntries = 5;
+        for ($k = 0; $k <= $maxEntries; $k++) {
             $game = new Game();
             $game->setName(ByteString::fromRandom(20)->toString());
             $game->setCreatedAt(new DateTime());

@@ -12,7 +12,8 @@ class TrackFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        for ($k = 0; $k <= 5; $k++) {
+        $maxEntries = 5;
+        for ($k = 0; $k <= $maxEntries; $k++) {
             $track = new Track();
             $track->setName(ByteString::fromRandom(20)->toString());
             $track->setCreatedAt(new DateTime());

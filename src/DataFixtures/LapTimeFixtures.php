@@ -30,7 +30,8 @@ class LapTimeFixtures extends Fixture
         $game = $this->gameRepository->find(1);
         $track = $this->trackRepository->find(1);
 
-        for ($k = 0; $k <= 5; $k++) {
+        $maxEntries = 5;
+        for ($k = 0; $k <= $maxEntries; $k++) {
             $laptime = new LapTime();
             $laptime->setDate(new DateTime());
             $laptime->setCar($car);
