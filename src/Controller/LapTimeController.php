@@ -55,7 +55,7 @@ class LapTimeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (date("H:i:s", strtotime($lapTime->getTime())) === "00:00:00") {
-                $newTime = "00:".$lapTime->getTime();
+                $newTime = "00:" . $lapTime->getTime();
                 $lapTime->setTime($newTime);
             }
             $lapTime->setCreatedAt(new DateTime());
@@ -85,7 +85,7 @@ class LapTimeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (date("H:i:s", strtotime($lapTime->getTime())) === "00:00:00") {
-                $newTime = "00:".$lapTime->getTime();
+                $newTime = "00:" . $lapTime->getTime();
                 $lapTime->setTime($newTime);
             }
             $lapTime->setUpdatedAt(new DateTime());
