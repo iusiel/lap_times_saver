@@ -4,12 +4,16 @@ namespace App\Entity;
 
 use App\Repository\CarRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  *
  */
+#[UniqueEntity(
+    fields: ['Name']
+)]
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 class Car
 {
