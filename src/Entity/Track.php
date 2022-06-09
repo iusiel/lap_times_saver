@@ -12,9 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  */
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
-#[UniqueEntity(
-    fields: ['Name']
-)]
+#[UniqueEntity(fields: ['Name'])]
 class Track
 {
     #[ORM\Id]

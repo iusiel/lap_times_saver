@@ -14,10 +14,9 @@ class LapTimesDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $urlGenerator = $container->get(UrlHelper::class);
-        $crawler = $client->request('GET', "/lap_time/");
+        $crawler = $client->request('GET', '/lap_time/');
         $this->assertResponseRedirects($urlGenerator->getAbsoluteUrl('/login'));
     }
-
 
     public function testLapTimeDashboard(): void
     {
@@ -26,7 +25,7 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/lap_time/");
+        $crawler = $client->request('GET', '/lap_time/');
         $this->assertResponseIsSuccessful();
     }
 
@@ -36,7 +35,7 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/lap_time/new");
+        $crawler = $client->request('GET', '/lap_time/new');
         $this->assertResponseIsSuccessful();
     }
 
@@ -47,16 +46,15 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/lap_time/new", [
+        $crawler = $client->request('POST', '/lap_time/new', [
             'lap_time' => [
-                'Date' => date("Y-m-d"),
-                'Game' => "1",
-                'Car' => "1",
-                'Track' => "1",
+                'Date' => date('Y-m-d'),
+                'Game' => '1',
+                'Car' => '1',
+                'Track' => '1',
                 'Time' => '02:00',
-                'IsPractice' => "1",
+                'IsPractice' => '1',
                 'ExtraNotes' => ByteString::fromRandom(30)->toString(),
-
             ],
         ]);
         $this->assertResponseRedirects('/lap_time/');
@@ -68,10 +66,9 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/lap_time/1/edit");
+        $crawler = $client->request('GET', '/lap_time/1/edit');
         $this->assertResponseIsSuccessful();
     }
-
 
     public function testEditLapTimeFunction(): void
     {
@@ -80,16 +77,15 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/lap_time/1/edit", [
+        $crawler = $client->request('POST', '/lap_time/1/edit', [
             'lap_time' => [
-                'Date' => date("Y-m-d"),
-                'Game' => "1",
-                'Car' => "1",
-                'Track' => "1",
+                'Date' => date('Y-m-d'),
+                'Game' => '1',
+                'Car' => '1',
+                'Track' => '1',
                 'Time' => '02:00',
-                'IsPractice' => "1",
+                'IsPractice' => '1',
                 'ExtraNotes' => ByteString::fromRandom(30)->toString(),
-
             ],
         ]);
         $this->assertResponseRedirects('/lap_time/');
@@ -102,7 +98,7 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/lap_time/1");
+        $crawler = $client->request('POST', '/lap_time/1');
         $this->assertResponseRedirects('/lap_time/');
     }
 
@@ -113,7 +109,7 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/lap_time/summary");
+        $crawler = $client->request('GET', '/lap_time/summary');
         $this->assertResponseIsSuccessful();
     }
 
@@ -124,9 +120,11 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/lap_time/chart?game=1&car=1&track=1");
+        $crawler = $client->request(
+            'GET',
+            '/lap_time/chart?game=1&car=1&track=1'
+        );
         $this->assertResponseIsSuccessful();
-
     }
 
     public function testShowChartWithNoFilterPage(): void
@@ -136,8 +134,7 @@ class LapTimesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/lap_time/chart");
+        $crawler = $client->request('GET', '/lap_time/chart');
         $this->assertResponseRedirects('/lap_time/summary');
-
     }
 }

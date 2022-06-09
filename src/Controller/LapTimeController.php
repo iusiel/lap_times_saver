@@ -34,17 +34,16 @@ class LapTimeController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render(
-            'lap_time/index.html.twig',
-            [
+        return $this->render('lap_time/index.html.twig', [
             'lap_times' => $lapTimeRepository->findAll(),
-            ]
-        );
+        ]);
     }
 
     #[Route('/new', name: 'app_lap_time_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, LapTimeRepository $lapTimeRepository): Response
-    {
+    public function new(
+        Request $request,
+        LapTimeRepository $lapTimeRepository
+    ): Response {
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }
@@ -54,28 +53,32 @@ class LapTimeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (date("H:i:s", strtotime($lapTime->getTime())) === "00:00:00") {
-                $newTime = "00:" . $lapTime->getTime();
+            if (date('H:i:s', strtotime($lapTime->getTime())) === '00:00:00') {
+                $newTime = '00:' . $lapTime->getTime();
                 $lapTime->setTime($newTime);
             }
             $lapTime->setCreatedAt(new DateTime());
             $lapTime->setUpdatedAt(new DateTime());
             $lapTimeRepository->add($lapTime);
-            return $this->redirectToRoute('app_lap_time_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_lap_time_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
-        return $this->renderForm(
-            'lap_time/new.html.twig',
-            [
+        return $this->renderForm('lap_time/new.html.twig', [
             'lap_time' => $lapTime,
             'form' => $form,
-            ]
-        );
+        ]);
     }
 
     #[Route('/{id}/edit', name: 'app_lap_time_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, LapTime $lapTime, LapTimeRepository $lapTimeRepository): Response
-    {
+    public function edit(
+        Request $request,
+        LapTime $lapTime,
+        LapTimeRepository $lapTimeRepository
+    ): Response {
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }
@@ -84,36 +87,49 @@ class LapTimeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (date("H:i:s", strtotime($lapTime->getTime())) === "00:00:00") {
-                $newTime = "00:" . $lapTime->getTime();
+            if (date('H:i:s', strtotime($lapTime->getTime())) === '00:00:00') {
+                $newTime = '00:' . $lapTime->getTime();
                 $lapTime->setTime($newTime);
             }
             $lapTime->setUpdatedAt(new DateTime());
             $lapTimeRepository->add($lapTime);
-            return $this->redirectToRoute('app_lap_time_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_lap_time_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
-        return $this->renderForm(
-            'lap_time/edit.html.twig',
-            [
+        return $this->renderForm('lap_time/edit.html.twig', [
             'lap_time' => $lapTime,
             'form' => $form,
-            ]
-        );
+        ]);
     }
 
     #[Route('/{id}', name: 'app_lap_time_delete', methods: ['POST'])]
-    public function delete(Request $request, LapTime $lapTime, LapTimeRepository $lapTimeRepository): Response
-    {
+    public function delete(
+        Request $request,
+        LapTime $lapTime,
+        LapTimeRepository $lapTimeRepository
+    ): Response {
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }
 
-        if ($this->isCsrfTokenValid('delete' . $lapTime->getId(), $request->request->get('_token'))) {
+        if (
+            $this->isCsrfTokenValid(
+                'delete' . $lapTime->getId(),
+                $request->request->get('_token')
+            )
+        ) {
             $lapTimeRepository->remove($lapTime);
         }
 
-        return $this->redirectToRoute('app_lap_time_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'app_lap_time_index',
+            [],
+            Response::HTTP_SEE_OTHER
+        );
     }
 
     #[Route('/summary', name: 'app_lap_time_summary', methods: ['GET'])]
@@ -123,17 +139,17 @@ class LapTimeController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->renderForm(
-            'lap_time/summary.html.twig',
-            [
+        return $this->renderForm('lap_time/summary.html.twig', [
             'summary' => $lapTimesSummary->getSummaryForAll(),
-            ]
-        );
+        ]);
     }
 
     #[Route('/chart', name: 'app_lap_time_chart', methods: ['GET'])]
-    public function showChart(Request $request, ChartBuilderInterface $chartBuilder, LapTimesSummary $lapTimesSummary): Response
-    {
+    public function showChart(
+        Request $request,
+        ChartBuilderInterface $chartBuilder,
+        LapTimesSummary $lapTimesSummary
+    ): Response {
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }
@@ -157,8 +173,7 @@ class LapTimeController extends AbstractController
         // end prepare labels and datasets
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-        $chart->setData(
-            [
+        $chart->setData([
             'labels' => $xAxis,
             'datasets' => [
                 [
@@ -168,28 +183,30 @@ class LapTimeController extends AbstractController
                     'data' => $yAxis,
                 ],
             ],
-            ]
-        );
+        ]);
 
-        return $this->renderForm(
-            'lap_time/chart.html.twig',
-            [
-                'chart' => $chart,
-            ]
-        );
+        return $this->renderForm('lap_time/chart.html.twig', [
+            'chart' => $chart,
+        ]);
     }
 
     private function getLabelsAndDatasets($summary)
     {
         foreach ($summary as $group) {
-            $label = "Lap times for " . $group['game']->getName() . " - " . $group['car']->getName() . " - " . $group['track']->getName();
+            $label =
+                'Lap times for ' .
+                $group['game']->getName() .
+                ' - ' .
+                $group['car']->getName() .
+                ' - ' .
+                $group['track']->getName();
 
             $xAxis = [];
             $yAxis = [];
             foreach ($group['lap_times'] as $lapTime) {
-                $xAxis[] = $lapTime->getDate()->format("F d, Y");
-                $exploded = explode(".", $lapTime->getTime());
-                $milliSeconds = (!empty($exploded[1])) ? "." . $exploded[1] : "";
+                $xAxis[] = $lapTime->getDate()->format('F d, Y');
+                $exploded = explode('.', $lapTime->getTime());
+                $milliSeconds = !empty($exploded[1]) ? '.' . $exploded[1] : '';
                 $yAxis[] = strtotime($lapTime->getTime()) . $milliSeconds;
             }
         }

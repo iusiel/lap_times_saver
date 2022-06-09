@@ -35,84 +35,63 @@ class LapTimeType extends AbstractType
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
-            ->add(
-                'Date',
-                DateType::class,
-                [
+            ->add('Date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'attr' => [
                     'class' => 'form-control',
-                    'value' => date("Y-m-d")
+                    'value' => date('Y-m-d'),
                 ],
-                ]
-            )
-            ->add(
-                'Game',
-                EntityType::class,
-                [
+            ])
+            ->add('Game', EntityType::class, [
                 'class' => Game::class,
                 'choice_label' => 'Name',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
+                    return $er
+                        ->createQueryBuilder('u')
                         ->orderBy('u.Name', 'ASC');
                 },
                 'attr' => [
                     'class' => 'form-select',
                 ],
-                ]
-            )
-            ->add(
-                'Car',
-                EntityType::class,
-                [
+            ])
+            ->add('Car', EntityType::class, [
                 'class' => Car::class,
                 'choice_label' => 'Name',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
+                    return $er
+                        ->createQueryBuilder('u')
                         ->orderBy('u.Name', 'ASC');
                 },
                 'attr' => [
                     'class' => 'form-select',
                 ],
-                ]
-            )
-            ->add(
-                'Track',
-                EntityType::class,
-                [
+            ])
+            ->add('Track', EntityType::class, [
                 'class' => Track::class,
                 'choice_label' => 'Name',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
+                    return $er
+                        ->createQueryBuilder('u')
                         ->orderBy('u.Name', 'ASC');
                 },
                 'attr' => [
                     'class' => 'form-select',
                 ],
-                ]
-            )
-            ->add(
-                'Time',
-                TextType::class,
-                [
+            ])
+            ->add('Time', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'maxlength' => 255,
                 ],
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255])
-                ],
-                ]
-            )
-            ->add(
-                'IsPractice',
-                ChoiceType::class,
-                [
+                'constraints' => [new NotBlank(), new Length(['max' => 255])],
+            ])
+            ->add('IsPractice', ChoiceType::class, [
                 'attr' => [
                     'class' => 'form-select',
                 ],
@@ -120,34 +99,23 @@ class LapTimeType extends AbstractType
                     'Yes' => 1,
                     'No' => 0,
                 ],
-                'constraints' => [
-                    new NotBlank(),
-                ],
-                ]
-            )
-            ->add(
-                'ExtraNotes',
-                TextType::class,
-                [
+                'constraints' => [new NotBlank()],
+            ])
+            ->add('ExtraNotes', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'maxlength' => 255,
                 ],
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255])
-                ],
-                ]
-            );
+                'constraints' => [new NotBlank(), new Length(['max' => 255])],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(
-            [
+        $resolver->setDefaults([
             'data_class' => LapTime::class,
-            'csrf_protection' => ($this->kernelInterface === 'test') ? false : true,
-            ]
-        );
+            'csrf_protection' =>
+                $this->kernelInterface === 'test' ? false : true,
+        ]);
     }
 }

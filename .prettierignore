@@ -33,3 +33,6 @@ assets/third-party
 composer.json
 composer.lock
 package.json
+
+linters
+githooks

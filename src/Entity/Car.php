@@ -11,9 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  *
  */
-#[UniqueEntity(
-    fields: ['Name']
-)]
+#[UniqueEntity(fields: ['Name'])]
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 class Car
 {

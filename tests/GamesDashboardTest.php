@@ -15,10 +15,9 @@ class GamesDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $urlGenerator = $container->get(UrlHelper::class);
-        $crawler = $client->request('GET', "/game/");
+        $crawler = $client->request('GET', '/game/');
         $this->assertResponseRedirects($urlGenerator->getAbsoluteUrl('/login'));
     }
-
 
     public function testGameDashboard(): void
     {
@@ -28,7 +27,7 @@ class GamesDashboardTest extends WebTestCase
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
         $urlGenerator = $container->get(UrlHelper::class);
-        $crawler = $client->request('GET', "/game/");
+        $crawler = $client->request('GET', '/game/');
         $this->assertResponseIsSuccessful();
     }
 
@@ -38,7 +37,7 @@ class GamesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/game/new");
+        $crawler = $client->request('GET', '/game/new');
         $this->assertResponseIsSuccessful();
     }
 
@@ -49,9 +48,9 @@ class GamesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/game/new", [
+        $crawler = $client->request('POST', '/game/new', [
             'game' => [
-                'Name' => 'Test'
+                'Name' => 'Test',
             ],
         ]);
         $urlGenerator = $container->get(UrlHelper::class);
@@ -64,10 +63,9 @@ class GamesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/game/1/edit");
+        $crawler = $client->request('GET', '/game/1/edit');
         $this->assertResponseIsSuccessful();
     }
-
 
     public function testEditGameFunction(): void
     {
@@ -76,9 +74,9 @@ class GamesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/game/1/edit", [
+        $crawler = $client->request('POST', '/game/1/edit', [
             'game' => [
-                'Name' => 'Edited title'
+                'Name' => 'Edited title',
             ],
         ]);
         $urlGenerator = $container->get(UrlHelper::class);
@@ -92,7 +90,7 @@ class GamesDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/game/1");
+        $crawler = $client->request('POST', '/game/1');
         $urlGenerator = $container->get(UrlHelper::class);
         $this->assertResponseRedirects('/game/');
     }

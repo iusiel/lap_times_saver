@@ -48,7 +48,6 @@ class LapTime
     #[ORM\Column(type: 'datetime')]
     private $UpdatedAt;
 
-
     public function getId(): ?int
     {
         return $this->id;

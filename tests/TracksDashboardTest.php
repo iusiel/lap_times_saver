@@ -13,10 +13,9 @@ class TracksDashboardTest extends WebTestCase
         $client = static::createClient();
         $container = static::getContainer();
         $urlGenerator = $container->get(UrlHelper::class);
-        $crawler = $client->request('GET', "/track/");
+        $crawler = $client->request('GET', '/track/');
         $this->assertResponseRedirects($urlGenerator->getAbsoluteUrl('/login'));
     }
-
 
     public function testTrackDashboard(): void
     {
@@ -25,7 +24,7 @@ class TracksDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/track/");
+        $crawler = $client->request('GET', '/track/');
         $this->assertResponseIsSuccessful();
     }
 
@@ -35,7 +34,7 @@ class TracksDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/track/new");
+        $crawler = $client->request('GET', '/track/new');
         $this->assertResponseIsSuccessful();
     }
 
@@ -46,9 +45,9 @@ class TracksDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/track/new", [
+        $crawler = $client->request('POST', '/track/new', [
             'track' => [
-                'Name' => 'Test'
+                'Name' => 'Test',
             ],
         ]);
         $urlGenerator = $container->get(UrlHelper::class);
@@ -61,10 +60,9 @@ class TracksDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('GET', "/track/1/edit");
+        $crawler = $client->request('GET', '/track/1/edit');
         $this->assertResponseIsSuccessful();
     }
-
 
     public function testEditTrackFunction(): void
     {
@@ -73,9 +71,9 @@ class TracksDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/track/1/edit", [
+        $crawler = $client->request('POST', '/track/1/edit', [
             'track' => [
-                'Name' => 'Edited title'
+                'Name' => 'Edited title',
             ],
         ]);
         $urlGenerator = $container->get(UrlHelper::class);
@@ -89,7 +87,7 @@ class TracksDashboardTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUser = $userRepository->findOne();
         $client->loginUser($testUser);
-        $crawler = $client->request('POST', "/track/1");
+        $crawler = $client->request('POST', '/track/1');
         $this->assertResponseRedirects('/track/');
     }
 }

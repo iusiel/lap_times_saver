@@ -12,8 +12,11 @@ class LapTimeDashboardAccess
     private $carRepository;
     private $trackRepository;
 
-    public function __construct(GameRepository $gameRepository, CarRepository $carRepository, TrackRepository $trackRepository)
-    {
+    public function __construct(
+        GameRepository $gameRepository,
+        CarRepository $carRepository,
+        TrackRepository $trackRepository
+    ) {
         $this->gameRepository = $gameRepository;
         $this->carRepository = $carRepository;
         $this->trackRepository = $trackRepository;
@@ -21,6 +24,8 @@ class LapTimeDashboardAccess
 
     public function allowAccess()
     {
-        return (!empty($this->gameRepository->findAll()) && !empty($this->carRepository->findAll()) && !empty($this->trackRepository->findAll()));
+        return !empty($this->gameRepository->findAll()) &&
+            !empty($this->carRepository->findAll()) &&
+            !empty($this->trackRepository->findAll());
     }
 }
