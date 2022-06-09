@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TrackRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @SuppressWarnings(PHPMD.CamelCaseParameterName)
@@ -11,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  */
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
+#[UniqueEntity(
+    fields: ['Name']
+)]
 class Track
 {
     #[ORM\Id]
