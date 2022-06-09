@@ -17,8 +17,11 @@ class LapTimeFixtures extends Fixture
     private $carRepository;
     private $trackRepository;
 
-    public function __construct(GameRepository $gameRepository, CarRepository $carRepository, TrackRepository $trackRepository)
-    {
+    public function __construct(
+        GameRepository $gameRepository,
+        CarRepository $carRepository,
+        TrackRepository $trackRepository
+    ) {
         $this->gameRepository = $gameRepository;
         $this->carRepository = $carRepository;
         $this->trackRepository = $trackRepository;
@@ -37,7 +40,7 @@ class LapTimeFixtures extends Fixture
             $laptime->setCar($car);
             $laptime->setGame($game);
             $laptime->setTrack($track);
-            $laptime->setTime("02:00");
+            $laptime->setTime('02:00');
             $laptime->setIsPractice(true);
             $laptime->setExtraNotes(ByteString::fromRandom(20)->toString());
             $laptime->setCreatedAt(new DateTime());

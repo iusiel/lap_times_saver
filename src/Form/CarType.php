@@ -23,32 +23,25 @@ class CarType extends AbstractType
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add(
-                'Name',
-                TextType::class,
-                [
-                'attr' => [
-                    'class' => 'form-control',
-                    'maxlength' => 255,
-                ],
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['max' => 255])
-                ],
-                ]
-            );
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
+        $builder->add('Name', TextType::class, [
+            'attr' => [
+                'class' => 'form-control',
+                'maxlength' => 255,
+            ],
+            'constraints' => [new NotBlank(), new Length(['max' => 255])],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(
-            [
+        $resolver->setDefaults([
             'data_class' => Car::class,
-            'csrf_protection' => ($this->kernelInterface === 'test') ? false : true,
-            ]
-        );
+            'csrf_protection' =>
+                $this->kernelInterface === 'test' ? false : true,
+        ]);
     }
 }

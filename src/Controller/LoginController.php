@@ -26,18 +26,17 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render(
-            'login/index.html.twig',
-            [
+        return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error,
-            ]
-        );
+            'error' => $error,
+        ]);
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $entityManager
+    ): Response {
         $user = new User();
         $plaintextPassword = '123456';
 

@@ -13,7 +13,7 @@ class LoginTest extends WebTestCase
         self::bootKernel();
         $container = static::getContainer();
         $urlGenerator = $container->get(UrlHelper::class);
-        
+
         $crawler = $client->request('GET', '/');
         $this->assertResponseRedirects($urlGenerator->getAbsoluteUrl('/login'));
     }
@@ -49,7 +49,10 @@ class LoginTest extends WebTestCase
         $this->assertResponseRedirects($urlGenerator->getAbsoluteUrl('/login'));
 
         $crawler = $client->followRedirect();
-        $errorMessage = $crawler->filter('.alert-danger')->first()->text();
+        $errorMessage = $crawler
+            ->filter('.alert-danger')
+            ->first()
+            ->text();
         $this->assertEquals($errorMessage, 'Invalid credentials.');
     }
 }
