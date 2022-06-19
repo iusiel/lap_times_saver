@@ -96,8 +96,8 @@ class LapTimeType extends AbstractType
                     'class' => 'form-select',
                 ],
                 'choices' => [
-                    'Yes' => 1,
                     'No' => 0,
+                    'Yes' => 1,
                 ],
                 'constraints' => [new NotBlank()],
             ])
