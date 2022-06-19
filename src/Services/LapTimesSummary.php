@@ -72,7 +72,12 @@ class LapTimesSummary
             $milliSecondsTotal / 1000 / count($lapTimes),
             3
         );
-        $averageMilliseconds = array_sum(explode('.', $averageMilliseconds));
+        $averageMilliseconds = str_pad(
+            array_sum(explode('.', $averageMilliseconds)),
+            3,
+            '0',
+            STR_PAD_LEFT
+        );
         return date('H:i:s', $total / count($lapTimes)) .
             '.' .
             $averageMilliseconds;
