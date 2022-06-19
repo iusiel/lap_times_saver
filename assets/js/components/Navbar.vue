@@ -2,17 +2,17 @@
 import getBaseUrl from '../services/GetBaseUrl.js';
 
 export default {
-  data() {
-    return {
-      currentRoute: window.location.href,
-      gameLink: `${getBaseUrl()}game/`,
-      carLink: `${getBaseUrl()}car/`,
-      trackLink: `${getBaseUrl()}track/`,
-      laptimeLink: `${getBaseUrl()}lap_time/`,
-      summaryLink: `${getBaseUrl()}lap_time/summary`,
-      logoutLink: `${getBaseUrl()}logout/`,
-    };
-  },
+    data() {
+        return {
+            currentRoute: window.location.href,
+            gameLink: `${getBaseUrl()}game/`,
+            carLink: `${getBaseUrl()}car/`,
+            trackLink: `${getBaseUrl()}track/`,
+            laptimeLink: `${getBaseUrl()}lap_time/`,
+            summaryLink: `${getBaseUrl()}lap_time/summary`,
+            logoutLink: `${getBaseUrl()}logout/`,
+        };
+    },
 };
 </script>
 

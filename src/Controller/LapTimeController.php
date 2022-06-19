@@ -28,8 +28,7 @@ class LapTimeController extends AbstractController
     }
 
     #[Route('/', name: 'app_lap_time_index', methods: ['GET'])]
-    public function index(LapTimeRepository $lapTimeRepository): Response
-    {
+    public function index(LapTimeRepository $lapTimeRepository): Response {
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }
@@ -133,8 +132,7 @@ class LapTimeController extends AbstractController
     }
 
     #[Route('/summary', name: 'app_lap_time_summary', methods: ['GET'])]
-    public function showSummary(LapTimesSummary $lapTimesSummary): Response
-    {
+    public function showSummary(LapTimesSummary $lapTimesSummary): Response {
         if ($this->lapTimeDashboardAccess->allowAccess() === false) {
             return $this->redirectToRoute('app_home');
         }

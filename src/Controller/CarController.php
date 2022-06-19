@@ -17,8 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CarController extends AbstractController
 {
     #[Route('/', name: 'app_car_index', methods: ['GET'])]
-    public function index(CarRepository $carRepository): Response
-    {
+    public function index(CarRepository $carRepository): Response {
         return $this->render('car/index.html.twig', [
             'cars' => $carRepository->findAll(),
         ]);

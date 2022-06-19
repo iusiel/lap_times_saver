@@ -14,16 +14,16 @@ import Navbar from './js/components/Navbar.vue';
 
 import('./third-party/bootstrap-5.1.3-dist/js/bootstrap.js');
 createApp({
-  data() {
-    return {
-      // count: 0
-    };
-  },
-  components: {
-    Navbar,
-  },
+    data() {
+        return {
+            // count: 0
+        };
+    },
+    components: {
+        Navbar,
+    },
 }).mount('#navbar');
 
 if (document.querySelectorAll('.form__delete').length > 0) {
-  import('./js/services/SweetAlertOnDeleteAction.js');
+    import('./js/services/SweetAlertOnDeleteAction.js');
 }
