@@ -137,4 +137,24 @@ class LapTimesDashboardTest extends WebTestCase
         $crawler = $client->request('GET', '/lap_time/chart');
         $this->assertResponseRedirects('/lap_time/summary');
     }
+
+    public function testAddNewLapTimeWithoutExtraNotes(): void
+    {
+        $client = static::createClient();
+        $container = static::getContainer();
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOne();
+        $client->loginUser($testUser);
+        $crawler = $client->request('POST', '/lap_time/new', [
+            'lap_time' => [
+                'Date' => date('Y-m-d'),
+                'Game' => '1',
+                'Car' => '1',
+                'Track' => '1',
+                'Time' => '02:00',
+                'IsPractice' => '1',
+            ],
+        ]);
+        $this->assertResponseRedirects('/lap_time/');
+    }
 }

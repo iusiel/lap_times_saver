@@ -102,11 +102,13 @@ class LapTimeType extends AbstractType
                 'constraints' => [new NotBlank()],
             ])
             ->add('ExtraNotes', TextType::class, [
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'maxlength' => 255,
                 ],
-                'constraints' => [new NotBlank(), new Length(['max' => 255])],
+                'constraints' => [new Length(['max' => 255])],
+                'empty_data' => '',
             ]);
     }
 

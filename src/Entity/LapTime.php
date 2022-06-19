@@ -39,7 +39,7 @@ class LapTime
     #[ORM\Column(type: 'boolean')]
     private $IsPractice;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $ExtraNotes;
 
     #[ORM\Column(type: 'datetime')]
