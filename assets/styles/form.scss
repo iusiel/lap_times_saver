@@ -1,3 +1,11 @@
 .form__error-message {
     color: #ff0000;
 }
+
+.select2-container .select2-selection--single {
+    height: auto !important;
+}
+
+.select2-container--default .select2-selection--single {
+    padding: 4px 0px;
+}

@@ -56,7 +56,7 @@ class LapTimeType extends AbstractType
                         ->orderBy('u.Name', 'ASC');
                 },
                 'attr' => [
-                    'class' => 'form-select',
+                    'class' => 'form-select js-select2',
                 ],
             ])
             ->add('Car', EntityType::class, [
@@ -68,7 +68,7 @@ class LapTimeType extends AbstractType
                         ->orderBy('u.Name', 'ASC');
                 },
                 'attr' => [
-                    'class' => 'form-select',
+                    'class' => 'form-select js-select2',
                 ],
             ])
             ->add('Track', EntityType::class, [
@@ -80,7 +80,7 @@ class LapTimeType extends AbstractType
                         ->orderBy('u.Name', 'ASC');
                 },
                 'attr' => [
-                    'class' => 'form-select',
+                    'class' => 'form-select js-select2',
                 ],
             ])
             ->add('Time', TextType::class, [
