@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LapTimeRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +48,11 @@ class LapTime
 
     #[ORM\Column(type: 'datetime')]
     private $UpdatedAt;
+
+    public function __construct()
+    {
+        $this->setDate(new DateTime());
+    }
 
     public function getId(): ?int
     {

@@ -45,7 +45,6 @@ class LapTimeType extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'attr' => [
                     'class' => 'form-control',
-                    'value' => date('Y-m-d'),
                 ],
             ])
             ->add('Game', EntityType::class, [
