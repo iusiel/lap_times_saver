@@ -17,7 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrackController extends AbstractController
 {
     #[Route('/', name: 'app_track_index', methods: ['GET'])]
-    public function index(TrackRepository $trackRepository): Response {
+    public function index(TrackRepository $trackRepository): Response
+    {
         return $this->render('track/index.html.twig', [
             'tracks' => $trackRepository->findAll(),
         ]);
@@ -50,7 +51,8 @@ class TrackController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_track_show', methods: ['GET'])]
-    public function show(Track $track): Response {
+    public function show(Track $track): Response
+    {
         return $this->render('track/show.html.twig', [
             'track' => $track,
         ]);
