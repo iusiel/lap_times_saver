@@ -13,8 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils): Response
-    {
+    public function index(AuthenticationUtils $authenticationUtils): Response {
         $user = $this->getUser();
         if (!empty($user)) {
             return $this->redirectToRoute('app_game'); //redirect to game dashboard if user is already logged in
