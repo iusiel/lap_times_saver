@@ -9,6 +9,7 @@
         "@vitejs/plugin-vue": "^2.3.1",
         "chart.js": "^3.4.1",
         "core-js": "^3.0.0",
+        "file-loader": "^6.0.0",
         "happy-dom": "^2.55.0",
         "prettier": "^2.6.2",
         "regenerator-runtime": "^0.13.2",
