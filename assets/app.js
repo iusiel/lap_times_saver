@@ -27,3 +27,11 @@ createApp({
 if (document.querySelectorAll('.form__delete').length > 0) {
     import('./js/services/SweetAlertOnDeleteAction.js');
 }
+
+if (typeof jQuery !== 'undefined') {
+    $(document).ready(() => {
+        $('.datatable').DataTable({
+            order: [[0, 'desc']],
+        });
+    });
+}

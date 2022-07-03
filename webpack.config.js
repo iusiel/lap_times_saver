@@ -68,6 +68,11 @@ Encore
     .copyFiles({
         from: './assets/third-party/select2-4.1.0-rc.0/dist',
         to: 'select2/[path][name].[ext]',
+    })
+
+    .copyFiles({
+        from: './assets/third-party/DataTables',
+        to: 'DataTables/[path][name].[ext]',
     });
 
 // uncomment if you use TypeScript

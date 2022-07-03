@@ -3,6 +3,10 @@
 {% block title %}Track index{% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" href="{{ asset('build/DataTables/datatables.min.css') }}" />
+    <script src="{{ asset('build/jquery/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('build/DataTables/datatables.min.js') }}"></script>
+
     <div class="container">
         <h1>Track index</h1>
 
@@ -10,7 +14,7 @@
             <a class="general__text-link" href="{{ path('app_track_new') }}"><button class="btn btn-primary">Create new track</button></a>
         </div>
 
-        <table class="table">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>Id</th>
