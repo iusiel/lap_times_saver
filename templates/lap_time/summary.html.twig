@@ -3,10 +3,14 @@
 {% block title %}Lap Time Summary{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ asset('build/DataTables/datatables.min.css') }}" />
+<script src="{{ asset('build/jquery/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('build/DataTables/datatables.min.js') }}"></script>
+
     <div class="container">
         <h1>Lap Time Summary</h1>
 
-        <table class="table">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>Game</th>
