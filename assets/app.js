@@ -28,7 +28,8 @@ if (document.querySelectorAll('.form__delete').length > 0) {
     import('./js/services/SweetAlertOnDeleteAction.js');
 }
 
-if (typeof jQuery !== 'undefined') {
+// only run this code if datatable is needed
+if (typeof jQuery !== 'undefined' && $('.datatable').length > 0) {
     $(document).ready(() => {
         $('.datatable').DataTable({
             order: [[0, 'desc']],
