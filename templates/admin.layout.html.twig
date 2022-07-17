@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if app.request.get('iframe') is empty %}
     <div id="navbar">
         <Navbar></Navbar>
     </div>
-
+    {% endif %}
+    
     <div class="mt-3">
     {% block content %}{% endblock %}
     </div>
