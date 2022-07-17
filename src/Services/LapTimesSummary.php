@@ -64,23 +64,14 @@ class LapTimesSummary
         foreach ($lapTimes as $lapTime) {
             $explodedTime = explode('.', $lapTime->getTime()); // try to get millisecond in time. 2nd element should contain milliseconds if it exists
             $milliSecondsTotal += !empty($explodedTime[1])
-                ? floatval($explodedTime[1])
+                ? floatval('0.' . $explodedTime[1])
                 : 0;
             $total += strtotime($lapTime->getTime());
         }
-        $averageMilliseconds = round(
-            $milliSecondsTotal / 1000 / count($lapTimes),
-            3
-        );
-        $averageMilliseconds = str_pad(
-            array_sum(explode('.', $averageMilliseconds)),
-            3,
-            '0',
-            STR_PAD_LEFT
-        );
-        return date('H:i:s', $total / count($lapTimes)) .
-            '.' .
-            $averageMilliseconds;
+        $averageMilliseconds = round($milliSecondsTotal / count($lapTimes), 3);
+        $averageMilliseconds = number_format($averageMilliseconds, 3, '.', '');
+
+        return date('H:i:s', $total / count($lapTimes)) . $averageMilliseconds;
     }
 
     private function getSortedArray(array $lapTimes)
