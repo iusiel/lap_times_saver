@@ -4,7 +4,7 @@
 <script src="{{ asset('build/select2/js/select2.min.js') }}"></script>
 
 <div data-controller="laptimeform">
-    {{ form_start(form) }}
+    {{ form_start(form,  {'attr': {'id': 'lapTimeForm'}}) }}
         <div class="mb-2">
         {{ form_label(form.Date) }}
         {{ form_widget(form.Date) }}
