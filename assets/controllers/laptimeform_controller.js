@@ -21,5 +21,35 @@ export default class extends Controller {
                 document.querySelector('.select2-search__field').focus();
             });
         }
+
+        if (document.getElementById('newLapTimeContainer')) {
+            // upon page load, set default values of form based on the last submission
+            if (localStorage.getItem('tempFormData') !== null) {
+                const tempFormData = JSON.parse(
+                    localStorage.getItem('tempFormData')
+                );
+
+                Object.entries(tempFormData).forEach((element) => {
+                    const [key, value] = element;
+                    document.querySelector(`[name="${key}"]`).value = value;
+                });
+            }
+
+            const lapTimeForm = document.getElementById('lapTimeForm');
+            lapTimeForm.addEventListener('submit', () => {
+                const tempFormData = {};
+                const formData = new FormData(lapTimeForm);
+                // eslint-disable-next-line no-restricted-syntax
+                for (const [key, value] of formData) {
+                    if (key !== 'lap_time[_token]') {
+                        tempFormData[key] = value;
+                    }
+                }
+                localStorage.setItem(
+                    'tempFormData',
+                    JSON.stringify(tempFormData)
+                );
+            });
+        }
     }
 }
