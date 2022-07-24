@@ -66,12 +66,20 @@ class LapTimesSummary
             $milliSecondsTotal += !empty($explodedTime[1])
                 ? floatval('0.' . $explodedTime[1])
                 : 0;
-            $total += strtotime($lapTime->getTime());
+            $total += strtotime($lapTime->getTime()) + $milliSecondsTotal;
         }
-        $averageMilliseconds = round($milliSecondsTotal / count($lapTimes), 3);
-        $averageMilliseconds = number_format($averageMilliseconds, 3, '.', '');
 
-        return date('H:i:s', $total / count($lapTimes)) . $averageMilliseconds;
+        $parts = explode('.', $total / count($lapTimes));
+        $milliSeconds = $parts[1] ?? 0;
+        $averageMilliseconds = number_format(
+            round('.' . $milliSeconds, 3),
+            3,
+            '.',
+            ''
+        );
+        $averageMilliseconds = str_replace('0.', '', $averageMilliseconds);
+
+        return date('H:i:s', $parts[0]) . '.' . $averageMilliseconds;
     }
 
     private function getSortedArray(array $lapTimes)
