@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\LapTimeRepository;
+use DateTime;
 
 class LapTimesSummary
 {
@@ -60,38 +61,36 @@ class LapTimesSummary
     private function getAverageLapTime(array $lapTimes)
     {
         $total = 0;
-        $milliSecondsTotal = 0;
+        $microSecondsTotal = 0;
         foreach ($lapTimes as $lapTime) {
-            $explodedTime = explode('.', $lapTime->getTime()); // try to get millisecond in time. 2nd element should contain milliseconds if it exists
-            $milliSecondsTotal += !empty($explodedTime[1])
-                ? floatval('0.' . $explodedTime[1])
-                : 0;
-            $total += strtotime($lapTime->getTime()) + $milliSecondsTotal;
+            $date = new DateTime($lapTime->getTime());
+            $microSecondsTotal += floatval('0.' . $date->format('u'));
+            $total += $date->getTimestamp() + $microSecondsTotal;
         }
 
         $parts = explode('.', $total / count($lapTimes));
-        $milliSeconds = $parts[1] ?? 0;
-        $averageMilliseconds = number_format(
-            round('.' . $milliSeconds, 3),
+        $microSeconds = $parts[1] ?? 0;
+        $averageMicroSeconds = number_format(
+            round('.' . $microSeconds, 3),
             3,
             '.',
             ''
         );
-        $averageMilliseconds = str_replace('0.', '', $averageMilliseconds);
+        $averageMicroSeconds = str_replace('0.', '', $averageMicroSeconds);
 
-        return date('H:i:s', $parts[0]) . '.' . $averageMilliseconds;
+        return date('H:i:s', $parts[0]) . '.' . $averageMicroSeconds;
     }
 
     private function getSortedArray(array $lapTimes)
     {
         $arrayToSort = [];
         foreach ($lapTimes as $lapTime) {
-            $explodedTime = explode('.', $lapTime->getTime()); // try to get millisecond in time. 2nd element should contain milliseconds if it exists
-            $milliSecondsTotal = !empty($explodedTime[1])
+            $explodedTime = explode('.', $lapTime->getTime()); // try to get microseconds in time. 2nd element should contain microseconds if it exists
+            $microSecondsTotal = !empty($explodedTime[1])
                 ? floatval($explodedTime[1] / 1000)
                 : 0;
             $arrayToSort[$lapTime->getTime()] =
-                strtotime($explodedTime[0]) + $milliSecondsTotal;
+                strtotime($explodedTime[0]) + $microSecondsTotal;
         }
         uasort($arrayToSort, function ($a, $b) {
             if ($a == $b) {
