@@ -52,10 +52,6 @@ class LapTimeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (date('H:i:s', strtotime($lapTime->getTime())) === '00:00:00') {
-                $newTime = '00:' . $lapTime->getTime();
-                $lapTime->setTime($newTime);
-            }
             $lapTime->setCreatedAt(new DateTime());
             $lapTime->setUpdatedAt(new DateTime());
             $lapTimeRepository->add($lapTime);
@@ -86,10 +82,6 @@ class LapTimeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (date('H:i:s', strtotime($lapTime->getTime())) === '00:00:00') {
-                $newTime = '00:' . $lapTime->getTime();
-                $lapTime->setTime($newTime);
-            }
             $lapTime->setUpdatedAt(new DateTime());
             $lapTimeRepository->add($lapTime);
             return $this->redirectToRoute(
