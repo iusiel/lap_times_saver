@@ -107,6 +107,7 @@ class LapTimeType extends AbstractType
                             },
                             function ($time) {
                                 try {
+                                    // add 00 as hour in time string in case user only inputted minute and seconds
                                     if (
                                         date('H:i:s', strtotime($time)) ===
                                         '00:00:00'
