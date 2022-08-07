@@ -8,6 +8,15 @@ Symfony application that I created in order to store lap times. Has games CRUD, 
 
 ## Installation
 
+### Via INSTALL.sh
+
+1. Make sure INSTALL.sh has execute permissions.
+1. Run `./INSTALL.sh` on the command line.
+1. After running the script, you may need to edit the database credentials in the .env.local file.
+    1. If you edited the database credentials in the .env.local file, you need to run `php bin/console doctrine:database:create` and `php bin/console doctrine:migrations:migrate` again in order to create the necessary tables and columns in the database.
+
+### Manual installation
+
 1. After cloning the repository, run composer install and yarn install
 
 ```
