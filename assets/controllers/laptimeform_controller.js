@@ -1,4 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
+import getBaseUrl from '../js/services/GetBaseUrl.js';
+import JSONFetchClient from '../js/services/JSONFetchClient.js';
 
 /*
  * This is an example Stimulus controller!
@@ -51,5 +53,30 @@ export default class extends Controller {
                 );
             });
         }
+
+        if (document.getElementById('create_new_car_link')) {
+            document
+                .getElementById('create_new_car_link')
+                .addEventListener('click', (event) => {
+                    event.preventDefault();
+                    localStorage.setItem('fromLaptimeForm', true);
+                    window.open(event.target.href, '_blank');
+                });
+        }
+
+        const bc = new BroadcastChannel('test_channel');
+        bc.onmessage = (event) => {
+            if (event.data === 'refresh-car-dropdown') {
+                JSONFetchClient(`${getBaseUrl()}car/last`).then((response) => {
+                    const newOption = new Option(
+                        response.name,
+                        response.id,
+                        true,
+                        true
+                    );
+                    $('#lap_time_Car').append(newOption).trigger('change');
+                });
+            }
+        };
     }
 }
