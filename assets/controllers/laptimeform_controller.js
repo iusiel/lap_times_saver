@@ -77,6 +77,18 @@ export default class extends Controller {
                     $('#lap_time_Car').append(newOption).trigger('change');
                 });
             }
+
+            if (event.data === 'refresh-game-dropdown') {
+                JSONFetchClient(`${getBaseUrl()}game/last`).then((response) => {
+                    const newOption = new Option(
+                        response.name,
+                        response.id,
+                        true,
+                        true
+                    );
+                    $('#lap_time_Game').append(newOption).trigger('change');
+                });
+            }
         };
     }
 }
