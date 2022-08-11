@@ -54,14 +54,14 @@ export default class extends Controller {
             });
         }
 
-        if (document.getElementById('create_new_car_link')) {
-            document
-                .getElementById('create_new_car_link')
-                .addEventListener('click', (event) => {
+        if (document.querySelectorAll('.create_new_link').length > 0) {
+            document.querySelectorAll('.create_new_link').forEach((element) => {
+                element.addEventListener('click', (event) => {
                     event.preventDefault();
                     localStorage.setItem('fromLaptimeForm', true);
                     window.open(event.target.href, '_blank');
                 });
+            });
         }
 
         const bc = new BroadcastChannel('test_channel');

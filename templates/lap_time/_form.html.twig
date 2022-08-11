@@ -17,6 +17,9 @@
         {{ form_label(form.Game) }}
         {{ form_widget(form.Game) }}
         </div>
+        <a target="_blank" href="{{ path('app_game_new') }}" class="mb-2 create_new_link">
+            Create new game
+        </a>
         <div class="form__error-message mb-2">
         {{ form_errors(form.Game) }}
         </div>
@@ -25,11 +28,9 @@
         {{ form_label(form.Car) }}
         {{ form_widget(form.Car) }}
         </div>
-        {% if (featureFlag("CREATE_NEW_INSIDE_LAP_TIME")) %}
-        <a target="_blank" href="{{ path('app_car_new') }}" class="mb-2" id="create_new_car_link">
+        <a target="_blank" href="{{ path('app_car_new') }}" class="mb-2 create_new_link">
             Create new car
         </a>
-        {% endif %}
         <div class="form__error-message mb-2">
         {{ form_errors(form.Car) }}
         </div>
