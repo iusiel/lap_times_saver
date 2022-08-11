@@ -8,8 +8,6 @@
 
         {{ include('car/_form.html.twig') }}
 
-        {% if app.request.get('iframe') is empty %}
         <a href="{{ path('app_car_index') }}"><button class="btn btn-primary">Back to list</button></a>
-        {% endif %}
     </div>
 {% endblock %}

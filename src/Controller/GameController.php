@@ -94,4 +94,13 @@ class GameController extends AbstractController
             Response::HTTP_SEE_OTHER
         );
     }
+
+    #[Route('/last', name: 'app_game_last', methods: ['GET'])]
+    public function getLast(GameRepository $gameRepository): Response {
+        $game = $gameRepository->findOneBy([], ['id' => 'desc']);
+        return $this->json([
+            'id' => $game->getId(),
+            'name' => $game->getName(),
+        ]);
+    }
 }

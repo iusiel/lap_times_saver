@@ -49,13 +49,6 @@ class TrackController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_track_show', methods: ['GET'])]
-    public function show(Track $track): Response {
-        return $this->render('track/show.html.twig', [
-            'track' => $track,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_track_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
@@ -101,5 +94,14 @@ class TrackController extends AbstractController
             [],
             Response::HTTP_SEE_OTHER
         );
+    }
+
+    #[Route('/last', name: 'app_track_last', methods: ['GET'])]
+    public function getLast(TrackRepository $trackRepository): Response {
+        $track = $trackRepository->findOneBy([], ['id' => 'desc']);
+        return $this->json([
+            'id' => $track->getId(),
+            'name' => $track->getName(),
+        ]);
     }
 }

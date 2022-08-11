@@ -1,10 +1,12 @@
-{{ form_start(form) }}
-    <div>
-    {{ form_label(form.Name) }}
-    {{ form_widget(form.Name) }}
-    </div>
-    <div class="form__error-message">
-    {{ form_errors(form.Name) }}
-    </div>
-    <button class="btn btn-primary my-3">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div data-controller="carform">
+    {{ form_start(form) }}
+        <div>
+        {{ form_label(form.Name) }}
+        {{ form_widget(form.Name) }}
+        </div>
+        <div class="form__error-message">
+        {{ form_errors(form.Name) }}
+        </div>
+        <button class="btn btn-primary my-3">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>

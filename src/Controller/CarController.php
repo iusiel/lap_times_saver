@@ -95,4 +95,13 @@ class CarController extends AbstractController
             Response::HTTP_SEE_OTHER
         );
     }
+
+    #[Route('/last', name: 'app_car_last', methods: ['GET'])]
+    public function getLast(CarRepository $carRepository): Response {
+        $car = $carRepository->findOneBy([], ['id' => 'desc']);
+        return $this->json([
+            'id' => $car->getId(),
+            'name' => $car->getName(),
+        ]);
+    }
 }
