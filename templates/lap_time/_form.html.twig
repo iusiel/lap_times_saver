@@ -39,6 +39,9 @@
         {{ form_label(form.Track) }}
         {{ form_widget(form.Track) }}
         </div>
+        <a target="_blank" href="{{ path('app_track_new') }}" class="mb-2 create_new_link">
+            Create new track
+        </a>
         <div class="form__error-message mb-2">
         {{ form_errors(form.Track) }}
         </div>

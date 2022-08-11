@@ -89,6 +89,22 @@ export default class extends Controller {
                     $('#lap_time_Game').append(newOption).trigger('change');
                 });
             }
+
+            if (event.data === 'refresh-track-dropdown') {
+                JSONFetchClient(`${getBaseUrl()}track/last`).then(
+                    (response) => {
+                        const newOption = new Option(
+                            response.name,
+                            response.id,
+                            true,
+                            true
+                        );
+                        $('#lap_time_Track')
+                            .append(newOption)
+                            .trigger('change');
+                    }
+                );
+            }
         };
     }
 }
