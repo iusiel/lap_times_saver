@@ -197,7 +197,11 @@ class LapTimeController extends AbstractController
                 $xAxis[] = $lapTime->getDate()->format('F d, Y');
                 $exploded = explode('.', $lapTime->getTime());
                 $milliSeconds = !empty($exploded[1]) ? '.' . $exploded[1] : '';
-                $yAxis[] = strtotime($lapTime->getTime()) . $milliSeconds;
+                $yAxis[] = [
+                    'x' => $lapTime->getDate()->format('F d, Y'),
+                    'y' => strtotime($lapTime->getTime()) . $milliSeconds,
+                    'extraNotes' => $lapTime->getExtraNotes(),
+                ];
             }
         }
 
