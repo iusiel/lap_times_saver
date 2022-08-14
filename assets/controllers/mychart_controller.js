@@ -38,7 +38,6 @@ export default class extends Controller {
         event.detail.options.scales = {
             y: {
                 ticks: {
-                    // Include a dollar sign in the ticks
                     // eslint-disable-next-line
                     callback(value, index, ticks) {
                         return convertUnixTimestampToReadable(value);
@@ -53,6 +52,10 @@ export default class extends Controller {
                 callbacks: {
                     label(context) {
                         return convertUnixTimestampToReadable(context.parsed.y);
+                    },
+
+                    afterBody(context) {
+                        return context[0].raw.extraNotes;
                     },
                 },
             },
