@@ -160,19 +160,29 @@ class LapTimeController extends AbstractController
         $label = $summaryLabelsAndData['label'];
         $xAxis = $summaryLabelsAndData['xAxis'];
         $yAxis = $summaryLabelsAndData['yAxis'];
+        $datasets = [];
+        $datasets[] = [
+            'label' => $label,
+            'backgroundColor' => 'rgb(255, 99, 132)',
+            'borderColor' => 'rgb(255, 99, 132)',
+            'data' => $yAxis['real'],
+        ];
+
+        // add practice dataset if there are practice laptimes present in the summary
+        if (!empty($xAxis['practice'])) {
+            $datasets[] = [
+                'label' => $label . ': Practice ',
+                'backgroundColor' => 'rgb(0, 0, 0)',
+                'borderColor' => 'rgb(0, 0, 0)',
+                'data' => $yAxis['practice'],
+            ];
+        }
         // end prepare labels and datasets
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
-            'labels' => $xAxis,
-            'datasets' => [
-                [
-                    'label' => $label,
-                    'backgroundColor' => 'rgb(255, 99, 132)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => $yAxis,
-                ],
-            ],
+            'labels' => $xAxis['real'],
+            'datasets' => $datasets,
         ]);
 
         return $this->renderForm('lap_time/chart.html.twig', [
@@ -184,20 +194,26 @@ class LapTimeController extends AbstractController
     {
         foreach ($summary as $group) {
             $label =
-                'Lap times for ' .
                 $group['game']->getName() .
-                ' - ' .
+                ' | ' .
                 $group['car']->getName() .
-                ' - ' .
+                ' | ' .
                 $group['track']->getName();
 
-            $xAxis = [];
-            $yAxis = [];
+            $xAxis = [
+                'practice' => [],
+                'real' => [],
+            ];
+            $yAxis = [
+                'practice' => [],
+                'real' => [],
+            ];
             foreach ($group['lap_times'] as $lapTime) {
-                $xAxis[] = $lapTime->getDate()->format('F d, Y');
+                $arrayKey = $lapTime->getIsPractice() ? 'practice' : 'real'; // determine whether to add lap time to practice or not
+                $xAxis[$arrayKey][] = $lapTime->getDate()->format('F d, Y');
                 $exploded = explode('.', $lapTime->getTime());
                 $milliSeconds = !empty($exploded[1]) ? '.' . $exploded[1] : '';
-                $yAxis[] = [
+                $yAxis[$arrayKey][] = [
                     'x' => $lapTime->getDate()->format('F d, Y'),
                     'y' => strtotime($lapTime->getTime()) . $milliSeconds,
                     'extraNotes' => $lapTime->getExtraNotes(),
