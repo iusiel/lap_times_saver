@@ -48,3 +48,21 @@ php bin/console doctine:fixtures:load
 ```
 npm run dev
 ```
+
+## Testing
+
+1. Create .env.test.local Input your database credentials here for the test database.
+
+```
+DATABASE_URL="mysql://root:samplepassword@localhost:3306/database-test?serverVersion=your-database-version"
+```
+
+2. Create test database. Run migrations and put dummy date on the test database.
+
+```
+php bin/console doctrine:database:create --env=test
+php bin/console doctrine:migrations:migrate --env=test
+php bin/console doctrine:fixtures:load --env=test --group=GroupFixtures
+```
+
+3. Run `php bin/phpunit `
