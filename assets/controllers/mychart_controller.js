@@ -42,6 +42,24 @@ export default class extends Controller {
                     callback(value, index, ticks) {
                         return convertUnixTimestampToReadable(value);
                     },
+
+                    color: '#fae8e0',
+                },
+
+                grid: {
+                    display: true,
+                    color: '#fae8e0',
+                },
+            },
+
+            x: {
+                ticks: {
+                    color: '#fae8e0',
+                },
+
+                grid: {
+                    display: true,
+                    color: '#fae8e0',
                 },
             },
         };
@@ -57,6 +75,12 @@ export default class extends Controller {
                     afterBody(context) {
                         return context[0].raw.extraNotes;
                     },
+                },
+            },
+
+            legend: {
+                labels: {
+                    color: '#fae8e0',
                 },
             },
         };

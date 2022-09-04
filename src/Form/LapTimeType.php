@@ -135,7 +135,7 @@ class LapTimeType extends AbstractType
             )
             ->add('IsPractice', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'form-select',
+                    'class' => 'form-select lap-time__is-pratice-select',
                 ],
                 'choices' => [
                     'No' => 0,
