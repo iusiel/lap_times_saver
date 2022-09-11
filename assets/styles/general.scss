@@ -101,3 +101,7 @@ a,
     border-color: var(--fourth-color);
     color: var(--secondary-color);
 }
+
+table.dataTable > tbody > tr:hover {
+    background-color: rgb(182, 226, 211, 0.2);
+}
