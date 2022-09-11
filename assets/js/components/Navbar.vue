@@ -19,7 +19,8 @@ export default {
 <template>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">LTS</a>
+            <a class="navbar-brand" href="/"><span class="h2">LTS</span></a>
+
             <button
                 class="navbar-toggler"
                 type="button"
@@ -48,7 +49,10 @@ export default {
                         <a
                             v-bind:class="[
                                 'nav-link',
-                                currentRoute === laptimeLink ? 'active' : '',
+                                currentRoute.indexOf(laptimeLink) !== -1 &&
+                                currentRoute !== summaryLink
+                                    ? 'active'
+                                    : '',
                             ]"
                             aria-current="page"
                             v-bind:href="laptimeLink"
@@ -59,7 +63,9 @@ export default {
                         <a
                             v-bind:class="[
                                 'nav-link',
-                                currentRoute === gameLink ? 'active' : '',
+                                currentRoute.indexOf(gameLink) !== -1
+                                    ? 'active'
+                                    : '',
                             ]"
                             aria-current="page"
                             v-bind:href="gameLink"
@@ -70,7 +76,9 @@ export default {
                         <a
                             v-bind:class="[
                                 'nav-link',
-                                currentRoute === carLink ? 'active' : '',
+                                currentRoute.indexOf(carLink) !== -1
+                                    ? 'active'
+                                    : '',
                             ]"
                             aria-current="page"
                             v-bind:href="carLink"
