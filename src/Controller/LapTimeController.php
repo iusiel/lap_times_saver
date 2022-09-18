@@ -163,8 +163,8 @@ class LapTimeController extends AbstractController
         $datasets = [];
         $datasets[] = [
             'label' => $label,
-            'backgroundColor' => 'rgb(255, 99, 132)',
-            'borderColor' => 'rgb(255, 99, 132)',
+            'backgroundColor' => '#e09e50',
+            'borderColor' => '#e09e50',
             'data' => $yAxis['real'],
         ];
 
@@ -172,8 +172,8 @@ class LapTimeController extends AbstractController
         if (!empty($xAxis['practice'])) {
             $datasets[] = [
                 'label' => $label . ': Practice ',
-                'backgroundColor' => 'rgb(0, 0, 0)',
-                'borderColor' => 'rgb(0, 0, 0)',
+                'backgroundColor' => '#8cbd89',
+                'borderColor' => '#8cbd89',
                 'data' => $yAxis['practice'],
             ];
         }

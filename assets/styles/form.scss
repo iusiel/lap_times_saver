@@ -1,5 +1,5 @@
 .form__error-message {
-    color: #ff0000;
+    color: var(--secondary-color);
 }
 
 .select2-container .select2-selection--single {
@@ -8,9 +8,28 @@
 
 .select2-container--default .select2-selection--single {
     padding: 4px 0px;
+    background-color: var(--fourth-color) !important;
+    color: var(--main-color) !important;
+    border-color: var(--tertiary-color) !important;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    color: var(--main-color) !important;
+}
+
+.select2-results__option--selectable {
+    color: var(--main-color);
 }
 
 .modal iframe {
     width: 100%;
     height: 400px;
+}
+
+.lap-time__is-pratice-select {
+    background-color: var(--fourth-color);
+    color: var(--main-color);
+    border-color: var(--tertiary-color);
 }
