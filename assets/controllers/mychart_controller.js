@@ -43,23 +43,23 @@ export default class extends Controller {
                         return convertUnixTimestampToReadable(value);
                     },
 
-                    color: '#fae8e0',
+                    color: '#e8eceb',
                 },
 
                 grid: {
                     display: true,
-                    color: '#fae8e0',
+                    color: '#e8eceb',
                 },
             },
 
             x: {
                 ticks: {
-                    color: '#fae8e0',
+                    color: '#e8eceb',
                 },
 
                 grid: {
                     display: true,
-                    color: '#fae8e0',
+                    color: '#e8eceb',
                 },
             },
         };
@@ -80,7 +80,7 @@ export default class extends Controller {
 
             legend: {
                 labels: {
-                    color: '#fae8e0',
+                    color: '#e8eceb',
                 },
             },
         };

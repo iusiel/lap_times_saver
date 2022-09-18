@@ -8,15 +8,15 @@
 
 .select2-container--default .select2-selection--single {
     padding: 4px 0px;
-    background-color: transparent !important;
-    color: var(--secondary-color) !important;
+    background-color: var(--fourth-color) !important;
+    color: var(--main-color) !important;
     border-color: var(--tertiary-color) !important;
 }
 
 .select2-container--default
     .select2-selection--single
     .select2-selection__rendered {
-    color: var(--secondary-color) !important;
+    color: var(--main-color) !important;
 }
 
 .select2-results__option--selectable {
@@ -29,7 +29,7 @@
 }
 
 .lap-time__is-pratice-select {
-    background-color: transparent;
-    color: var(--secondary-color);
+    background-color: var(--fourth-color);
+    color: var(--main-color);
     border-color: var(--tertiary-color);
 }
